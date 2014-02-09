@@ -9,4 +9,6 @@ There aren't any compiled versions. In fact, I've no idea if it will even compil
 
 This code is provided without any support.
 
+A lot of the code is sub-optimal and doesn't follow good coding practices.
+
 
