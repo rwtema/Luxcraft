@@ -5,7 +5,8 @@ Luxcraft
 
 The proto-mod that eventually became Extra Utilities.It contains a lot of random and strange ideas that I made because I was learning java and never intended to release it so I figured... why not?  Extra Utilities can be considered the 'best of' version of this mod.
 
-There aren't any compiled versions. In fact, I've no idea if it will even compile properly, I haven't used 1.4.7 in such a long time. If anyone is able to get a version working, I'll put a link here.
+Download:
+http://www.mediafire.com/download/fae5bplnjbpg447/luxcraft-1.4.7-0.1.zip
 
 This code is provided without any support.
 
