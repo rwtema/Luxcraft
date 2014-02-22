@@ -1,0 +1,16 @@
+[
+{
+  "modid": "luxcraft",
+  "name": "Luxcraft",
+  "description": "",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authors": ["RWTema"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
