@@ -32,14 +32,14 @@ public class BlockLuxStorage extends BlockLuxContainer {
 		super(Material.rock);
 		this.setCreativeTab(LuxcraftCreativeTab.instance);
 		this.setBlockName("luxcraft:luxStorage");
-		this.setBlockTextureName("luxcraft:luxContainerTop");
+		this.setBlockTextureName("luxcraft:luxStorageTop");
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerBlockIcons(IIconRegister register) {
-		this.blockIcon = register.registerIcon("luxcraft:luxContainerTop");
-		this.sideIcon = register.registerIcon("luxcraft:luxContainerSide");
+		this.blockIcon = register.registerIcon("luxcraft:luxStorageTop");
+		this.sideIcon = register.registerIcon("luxcraft:luxStorageSide");
 	}
 
 	@Override
