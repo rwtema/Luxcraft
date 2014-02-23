@@ -8,6 +8,4 @@ public interface ILuxContainer {
 
 	public LuxStack insertLux(LuxStack lux, Transfer simulate);
 
-	public LuxStack extractLux(LuxStack lux, Transfer simulate);
-
 }

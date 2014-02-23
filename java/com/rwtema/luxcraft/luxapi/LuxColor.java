@@ -1,5 +1,7 @@
 package com.rwtema.luxcraft.luxapi;
 
+import net.minecraft.util.StatCollector;
+
 public enum LuxColor {
 	White(0, "w", 1, 1, 1), //
 	Red(1, "r", 1, 0, 0), //
@@ -7,8 +9,8 @@ public enum LuxColor {
 	Blue(3, "b", 0, 0, 1), //
 	Cyan(4, "c", 0, 1, 1), //
 	Yellow(5, "y", 1, 1, 0), //
-	Violet(6, "w", 1, 0, 1), //
-	Black(7, "k", 0.1F, 0.1F, 0.1F);
+	Violet(6, "v", 1, 0, 1), //
+	Black(7, "k", 0, 0, 0);
 
 	public static final int n = LuxColor.values().length;
 
@@ -17,15 +19,32 @@ public enum LuxColor {
 
 	public final float r, g, b;
 
-	LuxColor(int c, String col, float r, float g, float b) {
+	private final int col;
+
+	LuxColor(int c, String name, float r, float g, float b) {
 		this.index = (byte) c;
-		this.shortname = col;
+		this.shortname = name;
 		this.r = r;
 		this.g = g;
 		this.b = b;
+
+		this.col = (((int) (r * 255)) << 16) | (((int) (g * 255)) << 8) | ((int) (b * 255));
 	}
 
-	public static LuxColor col(byte col) {
+	public static LuxColor col(int col) {
 		return LuxColor.values()[col];
 	}
+
+	public String getLocalizedName() {
+		return StatCollector.translateToLocal("lux.color." + index);
+	}
+
+	public String getAbbrLocalizedName() {
+		return StatCollector.translateToLocal("lux.abbr." + index);
+	}
+
+	public int displayColor() {
+		return col;
+	}
+
 }

@@ -12,17 +12,14 @@ import com.rwtema.luxcraft.luxapi.LuxStack;
 
 public class LuxHelper {
 
-	public final static String[] color_name = { "White", "Red", "Green", "Blue", "Cyan", "Yellow", "Violet", "Black" };
-	public final static String[] color_abb = { "W", "R", "G", "B", "C", "Y", "V", "K" };
 	public final static String[] color_str = { "\u00a7o", "\u00a74", "\u00a72", "\u00a71", "\u00a73", "\u00a76", "\u00a75", "\u00a78" };
-	public final static int[] color_int = { 0xffffff, 0xff0000, 0x00ff00, 0x0000ff, 0x00ffff, 0xffff00, 0xff00ff, 0x101010 };
+	//public final static int[] color_int = { 0xffffff, 0xff0000, 0x00ff00, 0x0000ff, 0x00ffff, 0xffff00, 0xff00ff, 0x101010 };
 	public final static double[] r = { 1, 1, 0, 0, 0, 1, 1, 10.0 / 255 };
 	public final static double[] g = { 1, 0, 1, 0, 1, 1, 0, 10 / 255.0 };
 	public final static double[] b = { 1, 0, 0, 1, 1, 0, 1, 10.0 / 255 };
 	private final static int[] dx = { 0, 0, 0, 0, 1, -1 };
 	private final static int[] dy = { 1, -1, 0, 0, 0, 0 };
 	private final static int[] dz = { 0, 0, 1, -1, 0, 0 };
-	public static LuxHelper instance = new LuxHelper();
 
 	public static DamageSource[] luxDamage = { DamageSource.cactus, DamageSource.inFire, DamageSource.cactus, DamageSource.cactus, DamageSource.cactus, DamageSource.inFire, DamageSource.wither };
 

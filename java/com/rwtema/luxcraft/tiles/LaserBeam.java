@@ -88,23 +88,23 @@ public class LaserBeam implements Iterator<Pos>, ILaser, java.lang.Iterable<Pos>
 		}
 
 		pos = pos.copy().advance(dir);
-//
-//		if (pos.equals(start)) {
-//			setFinished();
-//			return true;
-//		}
+		//
+		// if (pos.equals(start)) {
+		// setFinished();
+		// return true;
+		// }
 
 		if (curPos >= this.getMaxLength()) {
 			setFinished();
 			checkFinished();
 			return false;
 		}
-
-		if (!world.blockExists(pos.x, pos.y, pos.z)) {
-			setFinished();
-			checkFinished();
-			return false;
-		}
+//
+//		if (!world.blockExists(pos.x, pos.y, pos.z)) {
+//			setFinished();
+//			checkFinished();
+//			return false;
+//		}
 
 		if (world.getBlockLightOpacity(pos.x, pos.y, pos.z) >= 2) {
 			setFinished();
@@ -119,9 +119,7 @@ public class LaserBeam implements Iterator<Pos>, ILaser, java.lang.Iterable<Pos>
 	}
 
 	public void setFinished() {
-
 		finished = true;
-
 	}
 
 	public void checkFinished() {
@@ -155,6 +153,7 @@ public class LaserBeam implements Iterator<Pos>, ILaser, java.lang.Iterable<Pos>
 	@Override
 	public void remove() {
 		setFinished();
+		checkFinished();
 	}
 
 	@Override

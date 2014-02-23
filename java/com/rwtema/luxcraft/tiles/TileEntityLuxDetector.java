@@ -1,17 +1,27 @@
 package com.rwtema.luxcraft.tiles;
 
-import java.util.List;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
 import com.rwtema.luxcraft.luxapi.ILaser;
-import com.rwtema.luxcraft.luxapi.ILaserTarget;
-import com.rwtema.luxcraft.luxapi.ILuxLaserDivertor;
+import com.rwtema.luxcraft.luxapi.ILaserActivated;
 
-public class TileEntityLuxDetector extends TileEntity implements ILaserTarget, ILuxLaserDivertor {
+public class TileEntityLuxDetector extends TileEntity implements ILaserActivated {
+	boolean client;
+	
+	public TileEntityLuxDetector() {
+		this.client = false;
+	}
 
-	public int luxDetectedTimer;
+	public TileEntityLuxDetector(boolean client) {
+		this.client = client;
+	}
+
+	public boolean canUpdate() {
+		return !client;
+	}
+
+	public int luxDetectedTimer = 0;
 
 	public void updateEntity() {
 		if (luxDetectedTimer > 0) {
@@ -43,11 +53,6 @@ public class TileEntityLuxDetector extends TileEntity implements ILaserTarget, I
 	public void writeToNBT(NBTTagCompound par1NBTTagCompound) {
 		super.writeToNBT(par1NBTTagCompound);
 		par1NBTTagCompound.setByte("Timer", (byte) luxDetectedTimer);
-	}
-
-	@Override
-	public List<Pos> getAlternatePositions() {
-		return null;
 	}
 
 }

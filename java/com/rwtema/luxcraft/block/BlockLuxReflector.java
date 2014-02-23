@@ -40,9 +40,6 @@ public class BlockLuxReflector extends Block implements IReflector {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerBlockIcons(IIconRegister register) {
-		for (int i = 0; i < 1000; i++)
-			System.out.println("TREGAI");
-
 		icons[0] = this.blockIcon = register.registerIcon("luxcraft:reflector");
 		icons[1] = register.registerIcon("luxcraft:reflector_side");
 		icons[2] = register.registerIcon("luxcraft:reflector_mirror");
@@ -125,7 +122,6 @@ public class BlockLuxReflector extends Block implements IReflector {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_) {
-		System.out.println("Addin'");
 		p_149666_3_.add(new ItemStack(p_149666_1_, 1, 0));
 	}
 

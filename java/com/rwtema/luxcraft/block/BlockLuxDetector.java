@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 
 import com.rwtema.luxcraft.LuxcraftCreativeTab;
 import com.rwtema.luxcraft.tiles.TileEntityLuxDetector;
+import com.rwtema.luxcraft.tiles.TileEntityLuxInserter;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -57,22 +58,35 @@ public class BlockLuxDetector extends Block {
 	}
 
 	@Override
-	public boolean hasTileEntity() {
+	public boolean hasTileEntity(int metadata) {
 		return true;
 	}
 
 	@Override
-	public TileEntity createTileEntity(World var1, int meta) {
-		return new TileEntityLuxDetector();
+	public TileEntity createTileEntity(World world, int meta) {
+		if (meta == 0)
+			return new TileEntityLuxInserter();
+		else
+			return new TileEntityLuxDetector(world.isRemote);
 	}
 
 	@Override
-	public int isProvidingWeakPower(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5) {
-		if (par1IBlockAccess.getTileEntity(par2, par3, par4) != null) {
-			if (par1IBlockAccess.getBlockMetadata(par2, par3, par4) % 2 == 0) {
-				return ((TileEntityLuxDetector) par1IBlockAccess.getTileEntity(par2, par3, par4)).luxDetectedTimer > 0 ? 15 : 0;
-			} else {
-				return ((TileEntityLuxDetector) par1IBlockAccess.getTileEntity(par2, par3, par4)).luxDetectedTimer == 0 ? 15 : 0;
+	public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side) {
+		return false;
+	}
+
+	@Override
+	public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int side) {
+
+		if (world.getTileEntity(x, y, z) != null) {
+
+			switch (world.getBlockMetadata(x, y, z)) {
+			case 0:
+				return 15;
+			case 1:
+				return ((TileEntityLuxDetector) world.getTileEntity(x, y, z)).luxDetectedTimer > 0 ? 15 : 0;
+			case 2:
+				return ((TileEntityLuxDetector) world.getTileEntity(x, y, z)).luxDetectedTimer == 0 ? 15 : 0;
 			}
 		}
 		return 0;

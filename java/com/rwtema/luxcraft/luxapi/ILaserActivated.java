@@ -1,5 +1,5 @@
 package com.rwtema.luxcraft.luxapi;
 
-public interface ILaserTarget {
+public interface ILaserActivated {
 	public void hit(ILaser laser);
 }

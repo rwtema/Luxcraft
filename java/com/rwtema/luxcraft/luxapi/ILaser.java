@@ -5,6 +5,8 @@ import java.util.List;
 import com.rwtema.luxcraft.tiles.Pos;
 
 public interface ILaser {
+	
+	
 	public int getLength();
 	
 	public List<Pos> getPath();

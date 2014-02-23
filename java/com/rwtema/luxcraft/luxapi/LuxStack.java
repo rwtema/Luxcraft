@@ -38,6 +38,10 @@ public class LuxStack {
 		}
 	}
 
+	public LuxStack(float maxLux) {
+		this(maxLux, maxLux, maxLux, maxLux, maxLux, maxLux, maxLux, maxLux);
+	}
+
 	public LuxStack add(LuxColor color, float amount) {
 		lux[color.index] += amount;
 		return this;
@@ -69,18 +73,6 @@ public class LuxStack {
 		return temp;
 	}
 
-	public LuxStack[] split(int n) {
-		if (n == 1)
-			return new LuxStack[] { this.copy() };
-
-		LuxStack[] temp = new LuxStack[n];
-		for (byte color = 0; color < lux.length; color++) {
-			float k = (float) Math.ceil((double) lux[color] / n);
-
-		}
-		return temp;
-	}
-
 	public boolean isEmpty() {
 		for (byte c = 0; c < lux.length; c++)
 			if (lux[c] != 0)
@@ -91,7 +83,7 @@ public class LuxStack {
 	public String toString() {
 		String str = "";
 		for (byte c = 0; c < lux.length; c++)
-			str = str + LuxHelper.color_abb[c] + lux[c];
+			str = str + LuxColor.col(c).shortname + lux[c];
 		return str;
 	}
 
@@ -104,6 +96,12 @@ public class LuxStack {
 
 	public LuxStack copy() {
 		return (new LuxStack()).add(this);
+	}
+
+	public LuxStack copyFrom(LuxStack other) {
+		for (int i = 0; i < other.lux.length; i++)
+			this.lux[i] = other.lux[i];
+		return this;
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound tags) {
@@ -125,6 +123,16 @@ public class LuxStack {
 		LuxStack stack = new LuxStack();
 		stack.readFromNBT(tags);
 		return stack;
+	}
+
+	public float color(LuxColor col) {
+		return lux[col.index];
+	}
+
+	public LuxStack div(int n) {
+		for (byte color = 0; color < lux.length; color++)
+			lux[color] /= n;
+		return this;
 	}
 
 }

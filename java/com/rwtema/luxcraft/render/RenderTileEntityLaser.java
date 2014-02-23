@@ -24,24 +24,25 @@ public class RenderTileEntityLaser extends TileEntitySpecialRenderer {
 	public void renderTileEntityAt(TileEntity var1, double x, double y, double z, float f) {
 
 		TileEntityLuxLaserClient laser = (TileEntityLuxLaserClient) var1;
-		if (laser.path == null || laser.path.getLength() == 0)
+		LaserBeamClient laserBeam = laser.getClientPath();
+
+		if (laserBeam == null || laserBeam.getLength() == 0)
 			return;
 
 		Tessellator var2 = Tessellator.instance;
 
-		GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
+		// .glAlphaFunc(GL11.GL_GREATER, 0.1F);
 
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glDepthMask(true);
 
 		GL11.glDisable(GL11.GL_ALPHA_TEST);
 		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_CULL_FACE);
+		// GL11.glDisable(GL11.GL_CULL_FACE);
 
 		this.bindTexture(texture);
 
-		LaserBeamClient t = laser.path;
-		List<Pos> path = laser.path.getPath();
+		List<Pos> path = laserBeam.getPath();
 
 		GL11.glPushMatrix();
 
@@ -54,19 +55,23 @@ public class RenderTileEntityLaser extends TileEntitySpecialRenderer {
 		GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		for (LuxColor col : LuxColor.values()) {
-			GL11.glColor4f(col.r, col.g, col.b, t.alpha);
+			GL11.glColor4f(col.r, col.g, col.b, laserBeam.alpha);
 
-			for (int j = 0; j < Math.min(path.size(), t.maxLengths[col.index]) - 1; j++) {
+			if (col == LuxColor.Black) {
+				GL11.glColor4f(col.r, col.g, col.b, Math.min(1, 4 * laserBeam.alpha));
+			}
+
+			for (int j = 0; j < Math.min(path.size() - 1, laserBeam.maxLengths[col.index]); j++) {
 
 				double ax = path.get(j).x + dx, ay = path.get(j).y + dy, az = path.get(j).z + dz;
 
-				dx = dx * t.noise_momentum + (0.5 + rand.nextGaussian() / 2 * t.noise_size) * (1 - t.noise_momentum);
-				dy = dy * t.noise_momentum + (0.5 + rand.nextGaussian() / 2 * t.noise_size) * (1 - t.noise_momentum);
-				dz = dz * t.noise_momentum + (0.5 + rand.nextGaussian() / 2 * t.noise_size) * (1 - t.noise_momentum);
+				dx = dx * laserBeam.noise_momentum + (0.5 + rand.nextGaussian() / 2 * laserBeam.noise_size) * (1 - laserBeam.noise_momentum);
+				dy = dy * laserBeam.noise_momentum + (0.5 + rand.nextGaussian() / 2 * laserBeam.noise_size) * (1 - laserBeam.noise_momentum);
+				dz = dz * laserBeam.noise_momentum + (0.5 + rand.nextGaussian() / 2 * laserBeam.noise_size) * (1 - laserBeam.noise_momentum);
 
 				if (path.get(j + 1) == null)
 					break;
-				drawLine(ax, ay, az, t.beamsize, path.get(j + 1).x + dx, path.get(j + 1).y + dy, path.get(j + 1).z + dz);
+				drawLine(ax, ay, az, laserBeam.beamsize, path.get(j + 1).x + dx, path.get(j + 1).y + dy, path.get(j + 1).z + dz);
 			}
 		}
 
@@ -77,7 +82,6 @@ public class RenderTileEntityLaser extends TileEntitySpecialRenderer {
 		GL11.glPopMatrix();
 
 		GL11.glEnable(GL11.GL_LIGHTING);
-		GL11.glEnable(GL11.GL_CULL_FACE);
 
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glDepthMask(true);

@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,12 +18,13 @@ import net.minecraft.world.World;
 
 import com.rwtema.luxcraft.Luxcraft;
 import com.rwtema.luxcraft.LuxcraftCreativeTab;
+import com.rwtema.luxcraft.tiles.TileEntityLuxContainerBase;
 import com.rwtema.luxcraft.tiles.TileEntityLuxGenerator;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockLuxGenerator extends Block {
+public class BlockLuxGenerator extends BlockLuxContainer {
 	private static Random random = new Random();
 	public IIcon[] icons = new IIcon[8];
 
@@ -31,6 +33,13 @@ public class BlockLuxGenerator extends Block {
 		this.setCreativeTab(LuxcraftCreativeTab.instance);
 		this.setBlockName("luxcraft:luxGenerator");
 		this.setBlockTextureName("luxcraft:generator_base");
+	}
+
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+		if (!world.isRemote)
+			player.openGui(Luxcraft.instance, 0, world, x, y, z);
+		return true;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -56,7 +65,7 @@ public class BlockLuxGenerator extends Block {
 	}
 
 	@Override
-	public TileEntity createTileEntity(World var1, int meta) {
+	public TileEntityLuxContainerBase createTileEntity(World var1, int meta) {
 		return new TileEntityLuxGenerator();
 	}
 

@@ -5,7 +5,7 @@ public enum LaserType {
 	Advanced(16, 12 * 64, 4, 0.1F, 0.05F, 0.1F, 0.9F);
 
 	public final int range;
-	public final int maxLux;
+	public final float maxLux;
 	public final int damage;
 	public final float size;
 	public final float noise;
