@@ -10,29 +10,7 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class LuxEventHandler {
-	// @ForgeSubscribe
-	// public void oreRegistered(OreRegisterEvent event){
-	// System.out.println(event.Name+" "+event.Ore.getItemName());
-	//
-	// }
 
-	// @ForgeSubscribe
-	// public void soundPlay(PlaySoundAtEntityEvent event)
-	// {
-	// Iterator var18 =
-	// event.entity.worldObj.getChunkFromBlockCoords((int)event.entity.posX,
-	// (int)event.entity.posZ).chunkTileEntityMap.values().iterator();
-	//
-	// while (var18.hasNext())
-	// {
-	// TileEntity var22 = (TileEntity)var18.next();
-	// if(var22 instanceof TileEntityMuffler){
-	//
-	// }
-	// }
-	// }
-
-	//
 	@SubscribeEvent
 	public void playerUse(PlayerInteractEvent event) {
 //

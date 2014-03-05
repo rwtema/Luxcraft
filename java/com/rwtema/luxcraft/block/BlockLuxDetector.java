@@ -27,6 +27,7 @@ public class BlockLuxDetector extends Block {
 		this.setCreativeTab(LuxcraftCreativeTab.instance);
 		this.setLightOpacity(0);
 		this.setBlockTextureName("luxcraft:detector0");
+		this.setBlockName("luxcraft:detector");
 		float size = 3.0F / 16.0F;
 		this.setBlockBounds(size, size, size, 1 - size, 1 - size, 1 - size);
 	}

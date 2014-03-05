@@ -10,7 +10,7 @@ public enum LuxColor {
 	Cyan(4, "c", 0, 1, 1), //
 	Yellow(5, "y", 1, 1, 0), //
 	Violet(6, "v", 1, 0, 1), //
-	Black(7, "k", 0, 0, 0);
+	Black(7, "k", 0, 0, 0); //
 
 	public static final int n = LuxColor.values().length;
 
@@ -22,6 +22,10 @@ public enum LuxColor {
 	private final int col;
 
 	LuxColor(int c, String name, float r, float g, float b) {
+		this(c, name, r, g, b, true);
+	}
+
+	LuxColor(int c, String name, float r, float g, float b, boolean valid) {
 		this.index = (byte) c;
 		this.shortname = name;
 		this.r = r;

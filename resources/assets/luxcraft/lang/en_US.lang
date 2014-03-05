@@ -9,6 +9,7 @@ tile.luxcraft:luxGenerator.6.name=Violet Lux Generator
 tile.luxcraft:luxGenerator.7.name=Black Lux Generator
 tile.luxcraft:luxReflector.name=Reflector
 tile.luxcraft:luxLaser.name=Lux Laser
+
 lux.color.0=White
 lux.color.1=Red
 lux.color.2=Green

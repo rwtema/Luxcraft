@@ -1,5 +1,8 @@
 package com.rwtema.luxcraft;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.rwtema.luxcraft.block.BlockLuxDetector;
@@ -7,8 +10,10 @@ import com.rwtema.luxcraft.block.BlockLuxGenerator;
 import com.rwtema.luxcraft.block.BlockLuxLaser;
 import com.rwtema.luxcraft.block.BlockLuxReflector;
 import com.rwtema.luxcraft.block.BlockLuxStorage;
-import com.rwtema.luxcraft.containers.ContainerLuxContainer;
 import com.rwtema.luxcraft.containers.GuiHandler;
+import com.rwtema.luxcraft.item.ItemBlockMetadata;
+import com.rwtema.luxcraft.item.ItemLuxGem;
+import com.rwtema.luxcraft.item.ItemLuxSaber;
 import com.rwtema.luxcraft.tiles.TileEntityLuxDetector;
 import com.rwtema.luxcraft.tiles.TileEntityLuxGenerator;
 import com.rwtema.luxcraft.tiles.TileEntityLuxInserter;
@@ -35,18 +40,36 @@ public class Luxcraft {
 	public static BlockLuxDetector luxDetector;
 	public static BlockLuxStorage luxStorage;
 
+	public static ItemLuxGem luxGem;
+	public static ItemLuxSaber luxSaber;
+
 	@SidedProxy(clientSide = "com.rwtema.luxcraft.LuxcraftClient", serverSide = "com.rwtema.luxcraft.LuxcraftProxy")
 	public static LuxcraftProxy proxy;
+
+	public Item registerItem(Item item) {
+		GameRegistry.registerItem(item, item.getUnlocalizedName().substring("item.".length()));
+		return item;
+	}
+
+	public Block registerBlock(Block block) {
+		return this.registerBlock(block, ItemBlock.class);
+	}
+
+	public Block registerBlock(Block block, Class<? extends ItemBlock> itemblock) {
+		return GameRegistry.registerBlock(block, itemblock, block.getUnlocalizedName().substring("tile.".length()));
+	}
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(new LuxEventHandler());
 
-		GameRegistry.registerBlock(luxReflector = new BlockLuxReflector(), "luxcraft:luxReflector");
-		GameRegistry.registerBlock(luxLaser = new BlockLuxLaser(), "luxcraft:luxLaser");
-		GameRegistry.registerBlock(luxGenerator = new BlockLuxGenerator(), ItemBlockMetadata.class, "luxcraft:luxGenerator");
-		GameRegistry.registerBlock(luxDetector = new BlockLuxDetector(), ItemBlockMetadata.class, "luxcraft:luxDetector");
-		GameRegistry.registerBlock(luxStorage = new BlockLuxStorage(), "luxcraft:luxStorage");
+		registerBlock(luxReflector = new BlockLuxReflector());
+		registerBlock(luxLaser = new BlockLuxLaser());
+		registerBlock(luxGenerator = new BlockLuxGenerator(), ItemBlockMetadata.class);
+		registerBlock(luxDetector = new BlockLuxDetector(), ItemBlockMetadata.class);
+		registerBlock(luxStorage = new BlockLuxStorage());
+		registerItem(luxGem = new ItemLuxGem());
+		registerItem(luxSaber = new ItemLuxSaber());
 
 		GameRegistry.registerTileEntity(TileEntityLuxGenerator.class, "luxGenerator");
 		GameRegistry.registerTileEntity(TileEntityLuxLaser.class, "luxLaser");

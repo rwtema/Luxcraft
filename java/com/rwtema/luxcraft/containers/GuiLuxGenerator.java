@@ -30,7 +30,7 @@ public class GuiLuxGenerator extends GuiLuxContainer {
 	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
 		this.fontRendererObj.drawString(StatCollector.translateToLocal("tile.luxcraft:luxGenerator." + color.index + ".name"), 60, 6, 4210752);
 		this.fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
-		String temp = color.getLocalizedName() + ": " + getLux().totalLux();
+		String temp = color.getLocalizedName() + ": " + formatLux(getLux().totalLux());
 		this.fontRendererObj.drawString(temp, 123 - this.fontRendererObj.getStringWidth(temp) / 2, 28, color.displayColor());
 
 	}

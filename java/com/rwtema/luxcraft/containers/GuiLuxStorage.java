@@ -36,7 +36,7 @@ public class GuiLuxStorage extends GuiLuxContainer {
 			int dx = (mouse_x - 9) / 23;
 			if (dx >= 0 & dx < 7) {
 				LuxColor c = LuxColor.col(dx);
-				temp = c.getLocalizedName() + " " + getLux().color(c);
+				temp = c.getLocalizedName() + ": " + formatLux(getLux().color(c));
 				this.fontRendererObj.drawString(temp, (this.xSize - this.fontRendererObj.getStringWidth(temp)) / 2, 16, c.displayColor());
 
 			}
