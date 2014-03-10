@@ -3,6 +3,7 @@ package com.rwtema.luxcraft.tiles;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -16,10 +17,8 @@ public class TileEntityLuxInserter extends TileEntity implements ILuxLaserDivert
 	public boolean canUpdate() {
 		return false;
 	}
+	
 
-	public void onNeighbourChange() {
-
-	}
 
 	@Override
 	public List<Pos> getAlternatePositions() {

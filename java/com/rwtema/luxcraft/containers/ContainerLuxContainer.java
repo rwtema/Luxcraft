@@ -1,6 +1,7 @@
 package com.rwtema.luxcraft.containers;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
@@ -16,7 +17,7 @@ public class ContainerLuxContainer extends Container {
 
 	private LuxStack lux = new LuxStack();
 
-	public ContainerLuxContainer(ILuxContainer container) {
+	public ContainerLuxContainer(InventoryPlayer player, ILuxContainer container) {
 		this.container = container;
 	}
 
@@ -39,7 +40,6 @@ public class ContainerLuxContainer extends Container {
 			for (byte i = 0; i < 8; i++)
 				for (byte j = 0; j < 3; j++)
 					if (convToShort(newLux.lux[i], j) != convToShort(lux.lux[i], j)) {
-						System.out.println("Sent Change");
 						crafter.sendProgressBarUpdate(this, i * 3 + j, convToShort(newLux.lux[i], j));
 					}
 		}

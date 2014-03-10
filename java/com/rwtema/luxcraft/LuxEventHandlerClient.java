@@ -5,7 +5,12 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class LuxEventHandlerClient {
 	@SubscribeEvent
-	public void playerUse(PlayerInteractEvent event){
-		
+	public void playerUse(PlayerInteractEvent event) {
+
+	}
+
+	@SubscribeEvent
+	public void chat() {
+
 	}
 }

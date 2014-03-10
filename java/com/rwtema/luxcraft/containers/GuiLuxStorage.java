@@ -1,19 +1,19 @@
 package com.rwtema.luxcraft.containers;
 
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
-import com.rwtema.luxcraft.LuxHelper;
 import com.rwtema.luxcraft.luxapi.LuxColor;
 import com.rwtema.luxcraft.tiles.TileEntityLuxStorage;
 
 public class GuiLuxStorage extends GuiLuxContainer {
 	private TileEntityLuxStorage storageInventory;
 
-	public GuiLuxStorage(TileEntityLuxStorage par2TileEntityLuxStorage) {
-		super(new ContainerLuxStorage(par2TileEntityLuxStorage));
+	public GuiLuxStorage(InventoryPlayer player, TileEntityLuxStorage par2TileEntityLuxStorage) {
+		super(player, new ContainerLuxStorage(player, par2TileEntityLuxStorage));
 		storageInventory = par2TileEntityLuxStorage;
 		this.xSize = 198;
 	}

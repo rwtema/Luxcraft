@@ -11,7 +11,7 @@ import com.rwtema.luxcraft.luxapi.LuxColor;
 import com.rwtema.luxcraft.luxapi.LuxStack;
 import com.rwtema.luxcraft.luxapi.Transfer;
 
-public class TileEntityLuxGenerator extends TileEntityLuxContainerBase implements IInventory, ILuxTransmitter {
+public class TileEntityLuxGenerator extends TileEntityLuxContainerBaseInventory implements ILuxTransmitter {
 
 	public TileEntityLuxGenerator() {
 		super(null);
@@ -33,6 +33,8 @@ public class TileEntityLuxGenerator extends TileEntityLuxContainerBase implement
 			level += 1;
 		super.updateEntity();
 	}
+	
+
 
 	@Override
 	public LuxStack getLuxContents() {
@@ -69,68 +71,10 @@ public class TileEntityLuxGenerator extends TileEntityLuxContainerBase implement
 	InventoryBasic inv = new InventoryBasic("Lux Generator", true, 9);
 
 	@Override
-	public int getSizeInventory() {
-		return inv.getSizeInventory();
+	public IInventory getInv() {
+		return inv;
 	}
 
-	@Override
-	public ItemStack getStackInSlot(int var1) {
-		return inv.getStackInSlot(var1);
-	}
 
-	@Override
-	public ItemStack decrStackSize(int var1, int var2) {
-		return inv.decrStackSize(var1, var2);
-	}
-
-	@Override
-	public ItemStack getStackInSlotOnClosing(int var1) {
-		return inv.getStackInSlotOnClosing(var1);
-	}
-
-	@Override
-	public void setInventorySlotContents(int var1, ItemStack var2) {
-		inv.setInventorySlotContents(var1, var2);
-	}
-
-	@Override
-	public String getInventoryName() {
-		return inv.getInventoryName();
-	}
-
-	@Override
-	public boolean hasCustomInventoryName() {
-		return inv.hasCustomInventoryName();
-	}
-
-	@Override
-	public int getInventoryStackLimit() {
-		return inv.getInventoryStackLimit();
-	}
-
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer var1) {
-		return inv.isUseableByPlayer(var1);
-	}
-
-	@Override
-	public void openInventory() {
-
-	}
-
-	@Override
-	public void closeInventory() {
-
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int var1, ItemStack var2) {
-		return inv.isItemValidForSlot(var1, var2);
-	}
-
-	@Override
-	public boolean sameContainer(TileEntity other) {
-		return false;
-	}
 
 }

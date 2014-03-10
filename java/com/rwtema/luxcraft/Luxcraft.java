@@ -3,19 +3,24 @@ package com.rwtema.luxcraft;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.rwtema.luxcraft.block.BlockLuxDetector;
 import com.rwtema.luxcraft.block.BlockLuxGenerator;
+import com.rwtema.luxcraft.block.BlockLuxInfuser;
 import com.rwtema.luxcraft.block.BlockLuxLaser;
 import com.rwtema.luxcraft.block.BlockLuxReflector;
 import com.rwtema.luxcraft.block.BlockLuxStorage;
 import com.rwtema.luxcraft.containers.GuiHandler;
+import com.rwtema.luxcraft.debug.CommandClientDebug;
 import com.rwtema.luxcraft.item.ItemBlockMetadata;
+import com.rwtema.luxcraft.item.ItemInfusedItems;
 import com.rwtema.luxcraft.item.ItemLuxGem;
 import com.rwtema.luxcraft.item.ItemLuxSaber;
 import com.rwtema.luxcraft.tiles.TileEntityLuxDetector;
 import com.rwtema.luxcraft.tiles.TileEntityLuxGenerator;
+import com.rwtema.luxcraft.tiles.TileEntityLuxInfuser;
 import com.rwtema.luxcraft.tiles.TileEntityLuxInserter;
 import com.rwtema.luxcraft.tiles.TileEntityLuxLaser;
 import com.rwtema.luxcraft.tiles.TileEntityLuxStorage;
@@ -39,9 +44,11 @@ public class Luxcraft {
 	public static BlockLuxLaser luxLaser;
 	public static BlockLuxDetector luxDetector;
 	public static BlockLuxStorage luxStorage;
+	public static BlockLuxInfuser luxInfuser;
 
 	public static ItemLuxGem luxGem;
 	public static ItemLuxSaber luxSaber;
+	public static ItemInfusedItems luxInfusedItem;
 
 	@SidedProxy(clientSide = "com.rwtema.luxcraft.LuxcraftClient", serverSide = "com.rwtema.luxcraft.LuxcraftProxy")
 	public static LuxcraftProxy proxy;
@@ -68,18 +75,22 @@ public class Luxcraft {
 		registerBlock(luxGenerator = new BlockLuxGenerator(), ItemBlockMetadata.class);
 		registerBlock(luxDetector = new BlockLuxDetector(), ItemBlockMetadata.class);
 		registerBlock(luxStorage = new BlockLuxStorage());
+		registerBlock(luxInfuser = new BlockLuxInfuser());
+
 		registerItem(luxGem = new ItemLuxGem());
 		registerItem(luxSaber = new ItemLuxSaber());
+		registerItem(luxInfusedItem = new ItemInfusedItems());
 
-		GameRegistry.registerTileEntity(TileEntityLuxGenerator.class, "luxGenerator");
-		GameRegistry.registerTileEntity(TileEntityLuxLaser.class, "luxLaser");
-		GameRegistry.registerTileEntity(TileEntityLuxDetector.class, "luxDetector");
-		GameRegistry.registerTileEntity(TileEntityLuxInserter.class, "luxInsertor");
-		GameRegistry.registerTileEntity(TileEntityLuxStorage.class, "luxStorage");
-
-		// NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+		GameRegistry.registerTileEntity(TileEntityLuxGenerator.class, "luxcraft:luxGenerator");
+		GameRegistry.registerTileEntity(TileEntityLuxLaser.class, "luxcraft:luxLaser");
+		GameRegistry.registerTileEntity(TileEntityLuxDetector.class, "luxcraft:luxDetector");
+		GameRegistry.registerTileEntity(TileEntityLuxInserter.class, "luxcraft:luxInsertor");
+		GameRegistry.registerTileEntity(TileEntityLuxInfuser.class, "luxcraft:luxInfuser");
+		GameRegistry.registerTileEntity(TileEntityLuxStorage.class, "luxcraft:luxStorage");
 
 		proxy.registerRenderInformation();
+		
+		
 	}
 
 	@EventHandler

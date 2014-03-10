@@ -1,15 +1,36 @@
 package com.rwtema.luxcraft.containers;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import com.rwtema.luxcraft.tiles.TileEntityLuxGenerator;
+import com.rwtema.luxcraft.tiles.TileEntityLuxInfuser;
 import com.rwtema.luxcraft.tiles.TileEntityLuxStorage;
 
 import cpw.mods.fml.common.network.IGuiHandler;
 
 public class GuiHandler implements IGuiHandler {
+
+	public static Map<Class, Class<? extends Container>> serverGuis = new HashMap<Class, Class<? extends Container>>();
+	public static Map<Class, Class<? extends GuiContainer>> clientGuis = new HashMap<Class, Class<? extends GuiContainer>>();
+
+	static {
+		serverGuis.put(TileEntityLuxGenerator.class, ContainerLuxGenerator.class);
+		clientGuis.put(TileEntityLuxGenerator.class, GuiLuxGenerator.class);
+
+		serverGuis.put(TileEntityLuxStorage.class, ContainerLuxStorage.class);
+		clientGuis.put(TileEntityLuxStorage.class, GuiLuxStorage.class);
+
+		serverGuis.put(TileEntityLuxInfuser.class, ContainerLuxInfuser.class);
+		clientGuis.put(TileEntityLuxInfuser.class, GuiLuxInfuser.class); 
+	}
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -17,11 +38,15 @@ public class GuiHandler implements IGuiHandler {
 		if (tile == null)
 			return null;
 
-		else if (tile instanceof TileEntityLuxGenerator)
-			return new ContainerLuxGenerator(player.inventory, (TileEntityLuxGenerator) tile);
+		Class<? extends Container> container = serverGuis.get(tile.getClass());
 
-		else if (tile instanceof TileEntityLuxStorage)
-			return new ContainerLuxStorage((TileEntityLuxStorage) tile);
+		if (container != null)
+			try {
+				return container.getConstructor(InventoryPlayer.class, tile.getClass()).newInstance(player.inventory, tile);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
 
 		return null;
 	}
@@ -32,11 +57,15 @@ public class GuiHandler implements IGuiHandler {
 		if (tile == null)
 			return null;
 
-		else if (tile instanceof TileEntityLuxGenerator)
-			return new GuiLuxGenerator(player.inventory, (TileEntityLuxGenerator) tile);
+		Class<? extends GuiContainer> container = clientGuis.get(tile.getClass());
 
-		else if (tile instanceof TileEntityLuxStorage)
-			return new GuiLuxStorage((TileEntityLuxStorage) tile);
+		if (container != null)
+			try {
+				return container.getConstructor(InventoryPlayer.class, tile.getClass()).newInstance(player.inventory, tile);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
 
 		return null;
 	}

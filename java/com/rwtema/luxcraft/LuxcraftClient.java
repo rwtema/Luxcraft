@@ -1,7 +1,11 @@
 package com.rwtema.luxcraft;
 
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.MinecraftForgeClient;
 
+import com.rwtema.luxcraft.debug.CommandClientDebug;
+import com.rwtema.luxcraft.render.ItemRenderLuxInfused;
 import com.rwtema.luxcraft.render.ItemRenderLuxSaber;
 import com.rwtema.luxcraft.render.RenderPrism;
 import com.rwtema.luxcraft.render.RenderTileEntityLaser;
@@ -21,6 +25,7 @@ public class LuxcraftClient extends LuxcraftProxy {
 		RenderingRegistry.registerBlockHandler(new RenderPrism());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLuxLaserClient.class, new RenderTileEntityLaser());
 		MinecraftForgeClient.registerItemRenderer(Luxcraft.luxSaber, new ItemRenderLuxSaber());
-
+		MinecraftForgeClient.registerItemRenderer(Luxcraft.luxInfusedItem, new ItemRenderLuxInfused());
+		ClientCommandHandler.instance.registerCommand(new CommandClientDebug());
 	}
 }

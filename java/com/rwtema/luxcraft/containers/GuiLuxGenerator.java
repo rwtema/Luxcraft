@@ -1,13 +1,12 @@
 package com.rwtema.luxcraft.containers;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
-import com.rwtema.luxcraft.LuxHelper;
 import com.rwtema.luxcraft.luxapi.LuxColor;
 import com.rwtema.luxcraft.tiles.TileEntityLuxGenerator;
 
@@ -17,9 +16,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiLuxGenerator extends GuiLuxContainer {
 	private LuxColor color;
+	private IInventory gen;
 
-	public GuiLuxGenerator(InventoryPlayer par1InventoryPlayer, TileEntityLuxGenerator gen) {
-		super(new ContainerLuxGenerator(par1InventoryPlayer, gen));
+	public GuiLuxGenerator(InventoryPlayer player, TileEntityLuxGenerator gen) {
+		super(player, new ContainerLuxGenerator(player, gen));
+		this.gen=gen;
 		color = gen.getType();
 	}
 
@@ -28,7 +29,7 @@ public class GuiLuxGenerator extends GuiLuxContainer {
 	 * the items)
 	 */
 	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-		this.fontRendererObj.drawString(StatCollector.translateToLocal("tile.luxcraft:luxGenerator." + color.index + ".name"), 60, 6, 4210752);
+		this.fontRendererObj.drawString(StatCollector.translateToLocal(gen.getInventoryName()), 8, 6, 4210752);
 		this.fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
 		String temp = color.getLocalizedName() + ": " + formatLux(getLux().totalLux());
 		this.fontRendererObj.drawString(temp, 123 - this.fontRendererObj.getStringWidth(temp) / 2, 28, color.displayColor());
@@ -46,7 +47,7 @@ public class GuiLuxGenerator extends GuiLuxContainer {
 		this.drawTexturedModalRect(var5, var6, 0, 0, this.xSize, this.ySize);
 		int var7;
 		byte i = color.index;
-		GL11.glColor4d(color.r, color.g, color.b, 1);
+		GL11.glColor4d(color.r, color.g, color.b, 1); 
 		var7 = (int) (getLux().lux[i] / TileEntityLuxGenerator.maxLevel * 60);
 
 		this.drawTexturedModalRect(var5 + 99, var6 + 40, 176, 31, var7, 6);

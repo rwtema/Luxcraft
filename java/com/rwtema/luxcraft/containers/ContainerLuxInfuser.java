@@ -6,30 +6,27 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 import com.rwtema.luxcraft.tiles.TileEntityLuxGenerator;
+import com.rwtema.luxcraft.tiles.TileEntityLuxInfuser;
 
-public class ContainerLuxGenerator extends ContainerLuxContainer {
-	public TileEntityLuxGenerator generator;
+public class ContainerLuxInfuser extends ContainerLuxContainer {
+	public TileEntityLuxInfuser generator;
 
-	public ContainerLuxGenerator(InventoryPlayer player, TileEntityLuxGenerator gen) {
+	public ContainerLuxInfuser(InventoryPlayer player, TileEntityLuxInfuser gen) {
 		super(player, gen);
 		this.generator = gen;
 
-		for (int i = 0; i < 3; ++i) {
-			for (int j = 0; j < 3; ++j) {
-				this.addSlotToContainer(new Slot(gen, j + i * 3, 8 + j * 18, 17 + i * 18));
-			}
-		}
+		this.addSlotToContainer(new Slot(gen, 0, 80, 57));
 
 		int var3;
 
 		for (var3 = 0; var3 < 3; ++var3) {
 			for (int var4 = 0; var4 < 9; ++var4) {
-				this.addSlotToContainer(new Slot(player, var4 + var3 * 9 + 9, 8 + var4 * 18, 84 + var3 * 18));
+				this.addSlotToContainer(new Slot(player, var4 + var3 * 9 + 9, 8 + var4 * 18, 133 + var3 * 18));
 			}
 		}
 
 		for (var3 = 0; var3 < 9; ++var3) {
-			this.addSlotToContainer(new Slot(player, var3, 8 + var3 * 18, 142));
+			this.addSlotToContainer(new Slot(player, var3, 8 + var3 * 18, 191));
 		}
 	}
 
@@ -49,11 +46,11 @@ public class ContainerLuxGenerator extends ContainerLuxContainer {
 			ItemStack var5 = var4.getStack();
 			var3 = var5.copy();
 
-			if (par2 < 9) {
-				if (!this.mergeItemStack(var5, 9, this.inventorySlots.size(), true)) {
+			if (par2 < 1) {
+				if (!this.mergeItemStack(var5, 1, this.inventorySlots.size(), true)) {
 					return null;
 				}
-			} else if (!this.mergeItemStack(var5, 0, 9, false)) {
+			} else if (!this.mergeItemStack(var5, 0, 1, false)) {
 				return null;
 			}
 

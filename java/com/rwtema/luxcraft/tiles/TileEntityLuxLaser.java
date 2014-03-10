@@ -41,6 +41,8 @@ public class TileEntityLuxLaser extends TileEntity implements ILaserTile {
 	Random rand = new Random();
 
 	public void updateEntity() {
+		if (this.worldObj.getTotalWorldTime() % 4 != 0)
+			return;
 
 		Pos inv = (new Pos(xCoord, yCoord, zCoord)).advance(BlockLuxLaser.getDirection(getBlockMetadata()).getOpposite());
 		TileEntity tile = worldObj.getTileEntity(inv.x, inv.y, inv.z);

@@ -55,9 +55,37 @@ public class RenderHelper {
 
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 	}
+	
+	public static void renderTextureAsBlock(RenderBlocks renderer, IIcon texture, double translateX, double translateY, double translateZ) {
+		Tessellator tessellator = Tessellator.instance;
+		Block block = Blocks.stone;
+
+		renderer.setRenderBoundsFromBlock(block);
+		GL11.glTranslated(translateX, translateY, translateZ);
+		tessellator.startDrawingQuads();
+
+		tessellator.setNormal(0.0F, -1.0F, 0.0F);
+		renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, texture);
+
+		tessellator.setNormal(0.0F, 1.0F, 0.0F);
+		renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, texture);
+
+		tessellator.setNormal(0.0F, 0.0F, -1.0F);
+		renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, texture);
+
+		tessellator.setNormal(0.0F, 0.0F, 1.0F);
+		renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, texture);
+
+		tessellator.setNormal(-1.0F, 0.0F, 0.0F);
+		renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, texture);
+
+		tessellator.setNormal(1.0F, 0.0F, 0.0F);
+		renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, texture);
+
+		tessellator.draw();
+	}
 
 	public static void renderItemAsBlock(RenderBlocks renderer, ItemStack item, double translateX, double translateY, double translateZ) {
-
 		Tessellator tessellator = tessellator();
 		Block block = Blocks.stone;
 		IIcon texture = item.getIconIndex();

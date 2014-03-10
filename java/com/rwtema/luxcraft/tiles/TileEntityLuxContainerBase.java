@@ -1,7 +1,11 @@
 package com.rwtema.luxcraft.tiles;
 
+import net.minecraft.inventory.IInvBasic;
+import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.rwtema.luxcraft.luxapi.ILaserTile;
@@ -15,26 +19,48 @@ public class TileEntityLuxContainerBase extends TileEntity implements ILuxTransm
 	private final LuxStack maxLevels;
 	private int numLasers = 0;
 	private LuxStack transmit = new LuxStack();
+	protected String customName = "";
 
 	public TileEntityLuxContainerBase(LuxStack maxLevels) {
 		this.maxLevels = maxLevels;
+	}
+
+	public void setMaxLux(LuxStack newMax) {
+		for (byte c = 0; c < LuxColor.n; c++) {
+			maxLevels.lux[c] = newMax.lux[c];
+			if (contents.lux[c] > newMax.lux[c])
+				contents.lux[c] = newMax.lux[c];
+		}
+	}
+
+	public void setCustomName(String s) {
+		customName = s;
 	}
 
 	public void validate() {
 		super.validate();
 	}
 
-	public void readFromNBT(NBTTagCompound p_145839_1_) {
-		super.readFromNBT(p_145839_1_);
+	public void readFromNBT(NBTTagCompound tags) {
+		super.readFromNBT(tags);
+		contents.readFromNBT(tags);
+		customName = tags.getString("Custom Name");
 	}
 
-	public void writeToNBT(NBTTagCompound p_145841_1_) {
-		super.writeToNBT(p_145841_1_);
+	public void writeToNBT(NBTTagCompound tags) {
+		super.writeToNBT(tags);
+		contents.writeToNBT(tags);
+		if (!"".equals(customName))
+			tags.setString("Custom Name", customName);
 	}
 
 	@Override
 	public LuxStack getLuxContents() {
 		return contents;
+	}
+
+	public void setLuxContents(LuxStack other) {
+		contents = other;
 	}
 
 	@Override
@@ -52,6 +78,16 @@ public class TileEntityLuxContainerBase extends TileEntity implements ILuxTransm
 		}
 		this.markDirty();
 		return ret;
+	}
+
+	public String getInventoryName() {
+		return hasCustomInventoryName() ? customName : this.getBlockType()
+				.getPickBlock(new MovingObjectPosition(xCoord, yCoord, zCoord, 0, Vec3.createVectorHelper(xCoord, yCoord, zCoord)), worldObj, xCoord, yCoord, zCoord).getUnlocalizedName()
+				+ ".name";
+	}
+
+	public boolean hasCustomInventoryName() {
+		return !"".equals(customName);
 	}
 
 	@Override
@@ -102,5 +138,4 @@ public class TileEntityLuxContainerBase extends TileEntity implements ILuxTransm
 	public LuxStack getTransmissionPacket(ForgeDirection side) {
 		return transmit;
 	}
-
 }

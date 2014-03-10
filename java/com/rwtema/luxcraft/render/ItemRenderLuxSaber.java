@@ -32,6 +32,7 @@ public class ItemRenderLuxSaber implements IItemRenderer {
 	@Override
 	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper) {
 		return true;
+
 	}
 
 	@Override
@@ -40,6 +41,12 @@ public class ItemRenderLuxSaber implements IItemRenderer {
 
 		if (!(item.getItem() instanceof ItemLuxSaber))
 			return;
+		
+		IIcon texture = item.getIconIndex();
+
+		if (texture == null) {
+			return;
+		}
 
 		if (type == ItemRenderType.EQUIPPED || type == ItemRenderType.EQUIPPED_FIRST_PERSON) {
 			offset = 0;
@@ -62,11 +69,6 @@ public class ItemRenderLuxSaber implements IItemRenderer {
 
 		Tessellator tessellator = RenderHelper.tessellator();
 		Block block = Blocks.stone;
-		IIcon texture = item.getIconIndex();
-
-		if (texture == null) {
-			return;
-		}
 
 		renderer.overrideBlockBounds(0.375, 0, 0.375, 0.625, 1, 0.625);
 
@@ -130,6 +132,9 @@ public class ItemRenderLuxSaber implements IItemRenderer {
 			GL11.glDisable(GL11.GL_BLEND);
 		}
 
+		renderer.unlockBlockBounds();
+		renderer.setRenderBounds(0, 0, 0, 1, 1, 1);
+
 	}
 
 	public void drawCube(RenderBlocks renderer, Block block, IIcon texture) {
@@ -156,85 +161,6 @@ public class ItemRenderLuxSaber implements IItemRenderer {
 		renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, texture);
 
 		tessellator.draw();
-
-	}
-
-	public static class WorldLighting implements IBlockAccess {
-
-		IBlockAccess world = null;
-
-		int x = 0, y = 0, z = 0;
-
-		public void setPos(IBlockAccess world, int x, int y, int z) {
-			this.world = world;
-			this.x = x;
-			this.y = y;
-			this.z = z;
-		}
-
-		public void clear() {
-			this.world = null;
-		}
-
-		@Override
-		public Block getBlock(int var1, int var2, int var3) {
-			return world.getBlock(var1, var2, var3);
-		}
-
-		@Override
-		public TileEntity getTileEntity(int var1, int var2, int var3) {
-			return world.getTileEntity(var1, var2, var3);
-		}
-
-		@Override
-		@SideOnly(Side.CLIENT)
-		public int getLightBrightnessForSkyBlocks(int var1, int var2, int var3, int var4) {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-
-		@Override
-		public int getBlockMetadata(int var1, int var2, int var3) {
-			return world.getBlockMetadata(var1, var2, var3);
-		}
-
-		@Override
-		public boolean isAirBlock(int var1, int var2, int var3) {
-			return world.isAirBlock(var1, var2, var3);
-		}
-
-		@Override
-		@SideOnly(Side.CLIENT)
-		public BiomeGenBase getBiomeGenForCoords(int var1, int var2) {
-			return world.getBiomeGenForCoords(var1, var2);
-		}
-
-		@Override
-		@SideOnly(Side.CLIENT)
-		public int getHeight() {
-			return world.getHeight();
-		}
-
-		@Override
-		@SideOnly(Side.CLIENT)
-		public boolean extendedLevelsInChunkCache() {
-			return world.extendedLevelsInChunkCache();
-		}
-
-		@Override
-		public Vec3Pool getWorldVec3Pool() {
-			return world.getWorldVec3Pool();
-		}
-
-		@Override
-		public int isBlockProvidingPowerTo(int var1, int var2, int var3, int var4) {
-			return world.isBlockProvidingPowerTo(var1, var2, var3, var4);
-		}
-
-		@Override
-		public boolean isSideSolid(int x, int y, int z, ForgeDirection side, boolean _default) {
-			return world.isSideSolid(x, y, z, side, _default);
-		}
 
 	}
 
