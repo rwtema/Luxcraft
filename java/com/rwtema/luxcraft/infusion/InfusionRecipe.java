@@ -1,4 +1,4 @@
-package com.rwtema.luxcraft.tiles.infusion;
+package com.rwtema.luxcraft.infusion;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -27,11 +27,16 @@ public class InfusionRecipe implements IInfusionRecipe {
 
 	@Override
 	public boolean matches(ItemStack other) {
- 		return in.getItem() == other.getItem() && (in.getItemDamage() == OreDictionary.WILDCARD_VALUE || in.getItemDamage() == other.getItemDamage());
+		return in.getItem() == other.getItem() && (in.getItemDamage() == OreDictionary.WILDCARD_VALUE || in.getItemDamage() == other.getItemDamage());
 	}
 
 	@Override
 	public ItemStack createOutput(ItemStack other) {
 		return out.copy();
+	}
+
+	@Override
+	public ItemStack[] getInputs() {
+		return new ItemStack[] { in.copy() };
 	}
 }

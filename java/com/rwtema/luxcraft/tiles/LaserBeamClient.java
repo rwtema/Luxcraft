@@ -28,6 +28,7 @@ public class LaserBeamClient extends LaserBeam {
 	}
 
 	public LaserBeamClient(World world, int xstart, int ystart, int zstart, ForgeDirection direction, LaserType type, int[] maxLength) {
+		
 		super(world, xstart, ystart, zstart, direction, type);
 
 		this.maxLength = Math.min(this.maxLength, getMax(maxLength)+1);

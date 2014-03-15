@@ -1,4 +1,4 @@
-package com.rwtema.luxcraft.tiles.infusion;
+package com.rwtema.luxcraft.infusion;
 
 import net.minecraft.item.ItemStack;
 
@@ -11,5 +11,7 @@ public interface IInfusionRecipe {
 	public abstract boolean matches(ItemStack other);
 
 	public abstract ItemStack createOutput(ItemStack other);
+
+	public ItemStack[] getInputs();
 
 }

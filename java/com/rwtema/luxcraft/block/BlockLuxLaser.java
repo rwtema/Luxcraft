@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -14,11 +15,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import com.rwtema.luxcraft.Luxcraft;
 import com.rwtema.luxcraft.LuxcraftCreativeTab;
+import com.rwtema.luxcraft.luxapi.LuxColor;
 import com.rwtema.luxcraft.tiles.TileEntityLuxLaser;
 import com.rwtema.luxcraft.tiles.TileEntityLuxLaserClient;
 
@@ -26,6 +30,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockLuxLaser extends Block {
+	public static IIcon[] cols = new IIcon[LuxColor.n];
+
 	public BlockLuxLaser() {
 		super(Material.rock);
 		this.setCreativeTab(LuxcraftCreativeTab.instance);
@@ -34,6 +40,18 @@ public class BlockLuxLaser extends Block {
 		this.setLightOpacity(0);
 	}
 
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister register) {
+		super.registerBlockIcons(register);
+
+		for (int i = 0; i < LuxColor.n; i++) {
+			if (Luxcraft.colorBlind)
+				cols[i] = register.registerIcon("luxcraft:lux_" + LuxColor.col(i).shortname);
+			else
+				cols[i] = register.registerIcon("luxcraft:lux");
+
+		}
+	}
 
 	/**
 	 * Returns a bounding box from the pool of bounding boxes (this means this

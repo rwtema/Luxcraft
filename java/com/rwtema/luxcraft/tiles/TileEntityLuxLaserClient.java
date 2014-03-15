@@ -44,4 +44,8 @@ public class TileEntityLuxLaserClient extends TileEntity {
 	public AxisAlignedBB getRenderBoundingBox() {
 		return INFINITE_EXTENT_AABB;
 	}
+
+	public boolean shouldRenderInPass(int pass) {
+		return pass == 1;
+	}
 }

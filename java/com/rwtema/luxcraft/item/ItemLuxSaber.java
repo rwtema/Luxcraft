@@ -4,11 +4,13 @@ import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 
 import com.rwtema.luxcraft.LuxcraftCreativeTab;
@@ -62,13 +64,16 @@ public class ItemLuxSaber extends ItemSword {
 		laserBeam = register.registerIcon("luxcraft:SaberLaser");
 		this.itemIcon = register.registerIcon("luxcraft:SaberBase1");
 	}
-	
 
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(Item p_150895_1_, CreativeTabs p_150895_2_, List p_150895_3_) {
 		for (LuxColor c : LuxColor.values())
 			p_150895_3_.add(setColor(new ItemStack(p_150895_1_, 1), c));
+	}
+
+	public void onUpdate(ItemStack item, World world, Entity ent, int par4, boolean par5) {
+
 	}
 
 }

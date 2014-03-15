@@ -4,13 +4,13 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
 
+import com.rwtema.luxcraft.infusion.IInfusionRecipe;
+import com.rwtema.luxcraft.infusion.InfusionRegistry;
 import com.rwtema.luxcraft.inventory.InventoryLimited;
 import com.rwtema.luxcraft.inventory.InventorySidedBasic;
 import com.rwtema.luxcraft.luxapi.LuxColor;
 import com.rwtema.luxcraft.luxapi.LuxStack;
 import com.rwtema.luxcraft.luxapi.Transfer;
-import com.rwtema.luxcraft.tiles.infusion.IInfusionRecipe;
-import com.rwtema.luxcraft.tiles.infusion.InfusionRecipes;
 
 public class TileEntityLuxInfuser extends TileEntityLuxContainerBaseSidedInventory {
 	IInfusionRecipe curRecipe = null;
@@ -38,7 +38,7 @@ public class TileEntityLuxInfuser extends TileEntityLuxContainerBaseSidedInvento
 	}
 
 	public void checkRecipe() {
-		curRecipe = InfusionRecipes.getRecipe(inv.getStackInSlot(0));
+		curRecipe = InfusionRegistry.getRecipe(inv.getStackInSlot(0));
 		if (curRecipe == null)
 			this.setMaxLux(new LuxStack());
 		else {
@@ -76,12 +76,12 @@ public class TileEntityLuxInfuser extends TileEntityLuxContainerBaseSidedInvento
 
 	@Override
 	public boolean canInsertItem(int var1, ItemStack var2, int var3) {
-		return InfusionRecipes.isInfusable(var2);
+		return InfusionRegistry.isInfusable(var2);
 	}
 
 	@Override
 	public boolean canExtractItem(int var1, ItemStack var2, int var3) {
-		return !InfusionRecipes.isInfusable(var2);
+		return !InfusionRegistry.isInfusable(var2);
 	}
 
 }

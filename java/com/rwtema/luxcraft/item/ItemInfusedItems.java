@@ -1,17 +1,51 @@
 package com.rwtema.luxcraft.item;
 
+import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.init.Blocks;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
+import net.minecraftforge.oredict.OreDictionary;
 
+import com.rwtema.luxcraft.Luxcraft;
 import com.rwtema.luxcraft.LuxcraftCreativeTab;
+import com.rwtema.luxcraft.infusion.OreInfusionRecipe;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemInfusedItems extends Item {
+
+	public static IIcon glow;
+
+	public static ItemStack create(int damage, int stacksize, ItemStack renderitem) {
+		ItemStack item = new ItemStack(Luxcraft.luxInfusedItem, stacksize, damage);
+		NBTTagCompound tag = new NBTTagCompound();
+		renderitem.writeToNBT(tag);
+		NBTTagCompound tag2 = new NBTTagCompound();
+		tag2.setTag("render_item", tag);
+		item.setTagCompound(tag2);
+		return item;
+	}
+
+	public static ItemStack create(ItemStack baseitem) {
+		int id = OreInfusionRecipe.oreList.indexOf(OreDictionary.getOreName(OreDictionary.getOreID(baseitem)));
+		if (id < 0)
+			id = 0;
+
+		return create(id, 1, baseitem);
+	}
+
+	public static ItemStack getRenderItem(ItemStack item) {
+		if (item.hasTagCompound()) {
+			return ItemStack.loadItemStackFromNBT(item.getTagCompound().getCompoundTag("render_item"));
+		}
+
+		return null;
+	}
 
 	public ItemInfusedItems() {
 		this.setCreativeTab(LuxcraftCreativeTab.instance);
@@ -20,16 +54,22 @@ public class ItemInfusedItems extends Item {
 		this.setHasSubtypes(true);
 	}
 
-	public static IIcon glow;
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(Item p_150895_1_, CreativeTabs p_150895_2_, List p_150895_3_) {
+		p_150895_3_.add(new ItemStack(p_150895_1_, 1, 0));
+		for (int i = 1; i < OreInfusionRecipe.oreList.size(); i++) {
+			List<ItemStack> items = OreDictionary.getOres(OreInfusionRecipe.oreList.get(i));
+			if (items.size() > 0) {
+				p_150895_3_.add(create(items.get(0)));
+			}
+		}
+
+	}
 
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister par1IconRegister) {
 		super.registerIcons(par1IconRegister);
 		glow = par1IconRegister.registerIcon("luxcraft:infusionglow");
-	}
-
-	public static ItemStack getRenderItem(ItemStack item) {
-		return new ItemStack(Blocks.iron_ore);
 	}
 
 }

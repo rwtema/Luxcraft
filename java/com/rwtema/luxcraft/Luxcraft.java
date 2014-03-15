@@ -1,10 +1,13 @@
 package com.rwtema.luxcraft;
 
+import java.io.File;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 
 import com.rwtema.luxcraft.block.BlockLuxDetector;
 import com.rwtema.luxcraft.block.BlockLuxGenerator;
@@ -13,7 +16,6 @@ import com.rwtema.luxcraft.block.BlockLuxLaser;
 import com.rwtema.luxcraft.block.BlockLuxReflector;
 import com.rwtema.luxcraft.block.BlockLuxStorage;
 import com.rwtema.luxcraft.containers.GuiHandler;
-import com.rwtema.luxcraft.debug.CommandClientDebug;
 import com.rwtema.luxcraft.item.ItemBlockMetadata;
 import com.rwtema.luxcraft.item.ItemInfusedItems;
 import com.rwtema.luxcraft.item.ItemLuxGem;
@@ -50,6 +52,8 @@ public class Luxcraft {
 	public static ItemLuxSaber luxSaber;
 	public static ItemInfusedItems luxInfusedItem;
 
+	public static boolean colorBlind;
+
 	@SidedProxy(clientSide = "com.rwtema.luxcraft.LuxcraftClient", serverSide = "com.rwtema.luxcraft.LuxcraftProxy")
 	public static LuxcraftProxy proxy;
 
@@ -66,8 +70,24 @@ public class Luxcraft {
 		return GameRegistry.registerBlock(block, itemblock, block.getUnlocalizedName().substring("tile.".length()));
 	}
 
+	public Property setComment(Property p, String c) {
+		p.comment = c;
+		return p;
+	}
+
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+		Configuration config_client = new Configuration(new File(event.getModConfigurationDirectory(), "luxcraft_client.cfg"));
+
+		config_client.load();
+		config.load();
+
+		colorBlind = config_client.get("Client", "Color_Blind_Mode", false).getBoolean(false);
+
+		config.save();
+		config_client.save();
+
 		MinecraftForge.EVENT_BUS.register(new LuxEventHandler());
 
 		registerBlock(luxReflector = new BlockLuxReflector());
@@ -89,12 +109,12 @@ public class Luxcraft {
 		GameRegistry.registerTileEntity(TileEntityLuxStorage.class, "luxcraft:luxStorage");
 
 		proxy.registerRenderInformation();
-		
-		
+
 	}
 
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
+		FurnaceStuff.addRecipes();
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 	}
 }
