@@ -35,7 +35,7 @@ public class OreInfusionRecipe implements IInfusionRecipe {
 
 	@Override
 	public LuxStack getLux(ItemStack other) {
-		return new LuxStack(LuxColor.White, 200).add(LuxColor.Red, 200).add(LuxColor.Green, 200).add(LuxColor.Blue, 200);
+		return new LuxStack(LuxColor.Red, 200).add(LuxColor.Green, 200).add(LuxColor.Blue, 200);
 	}
 
 	@Override

@@ -32,23 +32,25 @@ public class TileEntityLuxInfuser extends TileEntityLuxContainerBaseSidedInvento
 				if (this.getLuxContents().lux[c] < max.lux[c])
 					return;
 
-			this.setLuxContents(new LuxStack());
 			inv.setInventorySlotContents(0, curRecipe.createOutput(inv.getStackInSlot(0)));
 		}
 	}
 
 	public void checkRecipe() {
-		curRecipe = InfusionRegistry.getRecipe(inv.getStackInSlot(0));
-		if (curRecipe == null)
+		if (inv.getStackInSlot(0) == null) {
 			this.setMaxLux(new LuxStack());
-		else {
-			this.setMaxLux(curRecipe.getLux(inv.getStackInSlot(0)));
+			return;
 		}
+
+		curRecipe = InfusionRegistry.getRecipe(inv.getStackInSlot(0));
+		if (curRecipe != null)
+			this.setMaxLux(curRecipe.getLux(inv.getStackInSlot(0)));
 	}
 
 	@Override
 	public void onInventoryChanged(InventoryBasic var1) {
-
+		if (var1.getStackInSlot(0) == null)
+			this.setLuxContents(new LuxStack());
 		this.markDirty();
 	}
 

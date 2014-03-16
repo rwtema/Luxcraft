@@ -17,6 +17,7 @@ import com.rwtema.luxcraft.particles.ParticleHandler;
 import com.rwtema.luxcraft.tiles.LaserBeamClient;
 import com.rwtema.luxcraft.tiles.Pos;
 import com.rwtema.luxcraft.tiles.TileEntityLuxLaserClient;
+import com.rwtema.luxcraft.util.MathHelper;
 
 public class RenderTileEntityLaser extends TileEntitySpecialRenderer {
 	static Random rand = new Random();
@@ -39,7 +40,7 @@ public class RenderTileEntityLaser extends TileEntitySpecialRenderer {
 			return;
 
 		Tessellator var2 = Tessellator.instance;
-		
+
 		GL11.glDepthFunc(GL11.GL_LEQUAL);
 
 		// .glAlphaFunc(GL11.GL_GREATER, 0.1F);
@@ -49,7 +50,7 @@ public class RenderTileEntityLaser extends TileEntitySpecialRenderer {
 
 		GL11.glDisable(GL11.GL_ALPHA_TEST);
 		GL11.glDisable(GL11.GL_LIGHTING);
-	
+
 		// GL11.glDisable(GL11.GL_CULL_FACE);
 
 		this.bindTexture(texture);
@@ -64,28 +65,33 @@ public class RenderTileEntityLaser extends TileEntitySpecialRenderer {
 		double dy = 0.5;
 		double dz = 0.5;
 
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+		// GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
 
 		for (LuxColor col : LuxColor.values()) {
 
-			double t1 = (col.ordinal() / (double) col.n + (float) ((Minecraft.getSystemTime()) % 3000L) / 3000.0F) * Math.PI * 2;
-			double t2 = (col.ordinal() / (double) col.n + (float) ((Minecraft.getSystemTime()) % 4000L) / 4000.0F) * Math.PI * 2;
+			double t1 = (col.ordinal() / 2 / (double) col.n + (float) ((Minecraft.getSystemTime()) % 3000L) / 3000.0F) * Math.PI * 2;
+			double t2 = (col.ordinal() / 2 / (double) col.n + (float) ((Minecraft.getSystemTime()) % 4000L) / 4000.0F) * Math.PI * 2;
 
-			double ddx = 0.5 + Math.cos(t1) * Math.cos(t2) * 0.75F * laserBeam.beamsize;
-			double ddy = 0.5 + Math.cos(t1) * Math.sin(t2) * 0.75F * laserBeam.beamsize;
-			double ddz = 0.5 + Math.sin(t1) * 0.75F * laserBeam.beamsize;
+			// ddx = ddy = ddz = 0.5;
 
-//			ddx = ddy = ddz = 0.5;
-
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
 			GL11.glColor4f(col.r, col.g, col.b, laserBeam.alpha);
 
 			if (col == LuxColor.Black) {
-				GL11.glColor4f(col.r, col.g, col.b, Math.min(1, 4 * laserBeam.alpha));
+				GL11.glColor4f(col.r, col.g, col.b, laserBeam.alpha * 0.5F);
+				GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			}
 
 			for (int j = 0; j < Math.min(path.size() - 1, laserBeam.maxLengths[col.index]); j++) {
 
 				double ax = path.get(j).x + dx, ay = path.get(j).y + dy, az = path.get(j).z + dz;
+
+				t1 += 0.1;
+				t2 += 0.1221;
+
+				double ddx = 0.5 + MathHelper.cos(t1) * MathHelper.cos(t2) * 0.75F * laserBeam.beamsize;
+				double ddy = 0.5 + MathHelper.cos(t1) * MathHelper.sin(t2) * 0.75F * laserBeam.beamsize;
+				double ddz = 0.5 + MathHelper.sin(t1) * 0.75F * laserBeam.beamsize;
 
 				dx = dx * laserBeam.noise_momentum + ddx * (1 - laserBeam.noise_momentum);
 				dy = dy * laserBeam.noise_momentum + ddy * (1 - laserBeam.noise_momentum);
@@ -110,7 +116,7 @@ public class RenderTileEntityLaser extends TileEntitySpecialRenderer {
 		var2.setTranslation(0, 0, 0);
 
 		GL11.glPopMatrix();
-		
+
 		GL11.glDepthFunc(GL11.GL_LEQUAL);
 
 		GL11.glEnable(GL11.GL_LIGHTING);
