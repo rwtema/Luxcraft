@@ -2,12 +2,9 @@ package com.rwtema.luxcraft.render;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -55,8 +52,12 @@ public class RenderHelper {
 
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 	}
-	
+
 	public static void renderTextureAsBlock(RenderBlocks renderer, IIcon texture, double translateX, double translateY, double translateZ) {
+		renderTextureAsBlock(renderer, texture, translateX, translateY, translateZ, 0);
+	}
+
+	public static void renderTextureAsBlock(RenderBlocks renderer, IIcon texture, double translateX, double translateY, double translateZ, int renderMask) {
 		Tessellator tessellator = Tessellator.instance;
 		Block block = Blocks.stone;
 
@@ -64,24 +65,35 @@ public class RenderHelper {
 		GL11.glTranslated(translateX, translateY, translateZ);
 		tessellator.startDrawingQuads();
 
-		tessellator.setNormal(0.0F, -1.0F, 0.0F);
-		renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, texture);
+		if ((renderMask & (1 << 0)) == 0) {
+			tessellator.setNormal(0.0F, -1.0F, 0.0F);
+			renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, texture);
+		}
 
-		tessellator.setNormal(0.0F, 1.0F, 0.0F);
-		renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, texture);
+		if ((renderMask & (1 << 1)) == 0) {
+			tessellator.setNormal(0.0F, 1.0F, 0.0F);
+			renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, texture);
+		}
 
-		tessellator.setNormal(0.0F, 0.0F, -1.0F);
-		renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, texture);
+		if ((renderMask & (1 << 2)) == 0) {
+			tessellator.setNormal(0.0F, 0.0F, -1.0F);
+			renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, texture);
+		}
 
-		tessellator.setNormal(0.0F, 0.0F, 1.0F);
-		renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, texture);
+		if ((renderMask & (1 << 3)) == 0) {
+			tessellator.setNormal(0.0F, 0.0F, 1.0F);
+			renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, texture);
+		}
 
-		tessellator.setNormal(-1.0F, 0.0F, 0.0F);
-		renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, texture);
+		if ((renderMask & (1 << 4)) == 0) {
+			tessellator.setNormal(-1.0F, 0.0F, 0.0F);
+			renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, texture);
+		}
 
-		tessellator.setNormal(1.0F, 0.0F, 0.0F);
-		renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, texture);
-
+		if ((renderMask & (1 << 5)) == 0) {
+			tessellator.setNormal(1.0F, 0.0F, 0.0F);
+			renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, texture);
+		}
 		tessellator.draw();
 	}
 

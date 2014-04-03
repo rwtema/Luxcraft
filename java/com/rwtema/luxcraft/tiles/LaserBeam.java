@@ -8,7 +8,6 @@ import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import com.rwtema.luxcraft.block.LaserType;
 import com.rwtema.luxcraft.luxapi.ILaser;
 import com.rwtema.luxcraft.luxapi.IReflector;
 

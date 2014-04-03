@@ -4,6 +4,7 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
 
+import com.rwtema.luxcraft.LuxHelper;
 import com.rwtema.luxcraft.infusion.IInfusionRecipe;
 import com.rwtema.luxcraft.infusion.InfusionRegistry;
 import com.rwtema.luxcraft.inventory.InventoryLimited;
@@ -12,7 +13,7 @@ import com.rwtema.luxcraft.luxapi.LuxColor;
 import com.rwtema.luxcraft.luxapi.LuxStack;
 import com.rwtema.luxcraft.luxapi.Transfer;
 
-public class TileEntityLuxInfuser extends TileEntityLuxContainerBaseSidedInventory {
+public class TileEntityLuxInfuser extends TileEntityLuxTransmitterBaseSidedInventory {
 	IInfusionRecipe curRecipe = null;
 
 	public TileEntityLuxInfuser() {
@@ -22,6 +23,8 @@ public class TileEntityLuxInfuser extends TileEntityLuxContainerBaseSidedInvento
 	public void updateEntity() {
 		check();
 		checkRecipe();
+		if (!LuxHelper.shouldProcess(worldObj))
+			return;
 		super.updateEntity();
 	}
 

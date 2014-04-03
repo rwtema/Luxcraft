@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-import com.rwtema.luxcraft.tiles.TileEntityLuxContainerBase;
+import com.rwtema.luxcraft.tiles.TileEntityLuxTransmitterBase;
 
 public abstract class BlockLuxContainer extends Block {
 
@@ -19,8 +19,8 @@ public abstract class BlockLuxContainer extends Block {
 		if (item.hasDisplayName()) {
 			item.getDisplayName();
 			TileEntity tile = world.getTileEntity(x, y, z);
-			if (tile instanceof TileEntityLuxContainerBase) {
-				((TileEntityLuxContainerBase) tile).setCustomName(item.getDisplayName());
+			if (tile instanceof TileEntityLuxTransmitterBase) {
+				((TileEntityLuxTransmitterBase) tile).setCustomName(item.getDisplayName());
 			}
 		}
 		super.onBlockPlacedBy(world, x, y, z, player, item);
@@ -30,10 +30,10 @@ public abstract class BlockLuxContainer extends Block {
 	public abstract boolean hasTileEntity(int meta);
 
 	@Override
-	public abstract TileEntityLuxContainerBase createTileEntity(World var1, int meta);
+	public abstract TileEntityLuxTransmitterBase createTileEntity(World var1, int meta);
 
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-		((TileEntityLuxContainerBase) world.getTileEntity(x, y, z)).onNeighbourChange();
+		((TileEntityLuxTransmitterBase) world.getTileEntity(x, y, z)).onNeighbourChange();
 	}
 
 }

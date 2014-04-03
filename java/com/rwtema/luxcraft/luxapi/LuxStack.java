@@ -54,6 +54,15 @@ public class LuxStack {
 		return this;
 	}
 
+	public LuxStack sub(LuxStack other) {
+		for (byte color = 0; color < lux.length; color++) {
+			lux[color] = lux[color] - other.lux[color];
+			if (lux[color] < 0)
+				lux[color] = 0;
+		}
+		return this;
+	}
+
 	public LuxStack extract(LuxStack other) {
 		return this.extract(other.lux);
 	}
@@ -86,6 +95,22 @@ public class LuxStack {
 			if (lux[c] != 0)
 				return false;
 		return true;
+	}
+
+	public static final float eps = 0.001F;
+
+	public boolean isSignificant() {
+		for (byte c = 0; c < lux.length; c++)
+			if (lux[c] > eps)
+				return true;
+		return false;
+	}
+
+	public LuxStack correct() {
+		for (byte c = 0; c < lux.length; c++)
+			if (lux[c] < eps)
+				lux[c] = 0;
+		return this;
 	}
 
 	public String toString() {
@@ -134,7 +159,7 @@ public class LuxStack {
 		return stack;
 	}
 
-	public float color(LuxColor col) {
+	public float luxLevel(LuxColor col) {
 		return lux[col.index];
 	}
 

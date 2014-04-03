@@ -3,7 +3,6 @@ package com.rwtema.luxcraft.tiles;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import com.rwtema.luxcraft.block.LaserType;
 import com.rwtema.luxcraft.luxapi.LuxColor;
 
 public class LaserBeamClient extends LaserBeam {

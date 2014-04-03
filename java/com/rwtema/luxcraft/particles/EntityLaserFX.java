@@ -12,9 +12,15 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class EntityLaserFX extends EntityFX {
+	public EntityLaserFX(World world, double x, double y, double z, int speed, LuxColor col) {
+		this(world, x, y, z, col);
+		this.motionX *= speed;
+		this.motionY *= speed;
+		this.motionZ *= speed;
+	}
 
-	public EntityLaserFX(World par1World, double par2, double par4, double par6, LuxColor col) {
-		super(par1World, par2, par4, par6, 0.0D, 0.0D, 0.0D);
+	public EntityLaserFX(World par1World, double x, double y, double z, LuxColor col) {
+		super(par1World, x, y, z, 0.0D, 0.0D, 0.0D);
 		this.setParticleIcon(BlockLuxLaser.cols[col.ordinal()]);
 		// this.particleRed = col.r;
 		// this.particleGreen = col.g;
@@ -32,9 +38,9 @@ public class EntityLaserFX extends EntityFX {
 		this.motionX *= 0.080000000149011612D;
 		this.motionY *= 0.080000000149011612D;
 		this.motionZ *= 0.080000000149011612D;
-		
-        this.particleMaxAge = (int)(8.0D / (Math.random() * 0.8D + 0.2D));
-        this.noClip = true;
+
+		this.particleMaxAge = (int) (8.0D / (Math.random() * 0.8D + 0.2D));
+		this.noClip = true;
 	}
 
 	private float t(float r) {

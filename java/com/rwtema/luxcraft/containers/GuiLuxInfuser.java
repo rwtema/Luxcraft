@@ -54,11 +54,11 @@ public class GuiLuxInfuser extends GuiLuxContainer {
 					this.drawArc(ang / total * 2 * Math.PI, (ang + infuser.MaxLuxLevel(col)) / total * 2 * Math.PI, this.guiLeft + 88, this.guiTop + 65, 176, 0, 0, 49);
 
 					GL11.glColor3f(col.r, col.g, col.b);
-					this.drawArc(ang / total * 2 * Math.PI, (ang + getLux().color(col)) / total * 2 * Math.PI, this.guiLeft + 88, this.guiTop + 65, 176, 0, 0, 49);
+					this.drawArc(ang / total * 2 * Math.PI, (ang + getLux().luxLevel(col)) / total * 2 * Math.PI, this.guiLeft + 88, this.guiTop + 65, 176, 0, 0, 49);
 
 					GL11.glColor3f(col.r, col.g, col.b);
-					this.drawArc(ang / total * 2 * Math.PI, (ang + getLux().color(col)) / total * 2 * Math.PI, this.guiLeft + 88, this.guiTop + 65, 176, 98,
-							41 - (int) ((getLux().color(col) * 41) / infuser.MaxLuxLevel(col)), 41);
+					this.drawArc(ang / total * 2 * Math.PI, (ang + getLux().luxLevel(col)) / total * 2 * Math.PI, this.guiLeft + 88, this.guiTop + 65, 176, 98,
+							41 - (int) ((getLux().luxLevel(col) * 41) / infuser.MaxLuxLevel(col)), 41);
 
 					ang += infuser.MaxLuxLevel(col);
 				}

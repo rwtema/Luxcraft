@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 
 import com.rwtema.luxcraft.Luxcraft;
 import com.rwtema.luxcraft.LuxcraftCreativeTab;
-import com.rwtema.luxcraft.tiles.TileEntityLuxContainerBase;
+import com.rwtema.luxcraft.tiles.TileEntityLuxTransmitterBase;
 import com.rwtema.luxcraft.tiles.TileEntityLuxGenerator;
 
 import cpw.mods.fml.relauncher.Side;
@@ -65,7 +65,7 @@ public class BlockLuxGenerator extends BlockLuxContainer {
 	}
 
 	@Override
-	public TileEntityLuxContainerBase createTileEntity(World var1, int meta) {
+	public TileEntityLuxTransmitterBase createTileEntity(World var1, int meta) {
 		return new TileEntityLuxGenerator();
 	}
 
@@ -112,10 +112,6 @@ public class BlockLuxGenerator extends BlockLuxContainer {
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
 	}
 
-	/**
-	 * Determines the damage on the item the block drops. Used in cloth and
-	 * wood.
-	 */
 	@Override
 	public int damageDropped(int par1) {
 		return par1;

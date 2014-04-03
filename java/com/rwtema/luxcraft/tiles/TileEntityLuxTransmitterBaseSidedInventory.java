@@ -6,9 +6,9 @@ import net.minecraft.item.ItemStack;
 
 import com.rwtema.luxcraft.luxapi.LuxStack;
 
-public abstract class TileEntityLuxContainerBaseSidedInventory extends TileEntityLuxContainerBaseInventory implements ISidedInventory {
+public abstract class TileEntityLuxTransmitterBaseSidedInventory extends TileEntityLuxTransmitterBaseInventory implements ISidedInventory {
 
-	public TileEntityLuxContainerBaseSidedInventory(LuxStack maxLevels) {
+	public TileEntityLuxTransmitterBaseSidedInventory(LuxStack maxLevels) {
 		super(maxLevels);
 	}
 

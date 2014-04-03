@@ -1,19 +1,13 @@
 package com.rwtema.luxcraft;
 
-import net.minecraft.block.BlockFurnace;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.DamageSource;
-
-import com.rwtema.luxcraft.luxapi.ILuxContainer;
-import com.rwtema.luxcraft.luxapi.LuxColor;
-import com.rwtema.luxcraft.luxapi.LuxStack;
+import net.minecraft.world.World;
 
 public class LuxHelper {
 
 	public final static String[] color_str = { "\u00a7o", "\u00a74", "\u00a72", "\u00a71", "\u00a73", "\u00a76", "\u00a75", "\u00a78" };
-	//public final static int[] color_int = { 0xffffff, 0xff0000, 0x00ff00, 0x0000ff, 0x00ffff, 0xffff00, 0xff00ff, 0x101010 };
+	// public final static int[] color_int = { 0xffffff, 0xff0000, 0x00ff00,
+	// 0x0000ff, 0x00ffff, 0xffff00, 0xff00ff, 0x101010 };
 	public final static double[] r = { 1, 1, 0, 0, 0, 1, 1, 10.0 / 255 };
 	public final static double[] g = { 1, 0, 1, 0, 1, 1, 0, 10 / 255.0 };
 	public final static double[] b = { 1, 0, 0, 1, 1, 0, 1, 10.0 / 255 };
@@ -41,6 +35,14 @@ public class LuxHelper {
 				return String.format("%.3f", ((float) amount) / 12);
 		}
 
+	}
+
+	public static boolean shouldProcess(World worldObj) {
+		return shouldProcess(worldObj.getTotalWorldTime());
+	}
+
+	public static boolean shouldProcess(long time) {
+		return time % 4 == 0;
 	}
 
 }

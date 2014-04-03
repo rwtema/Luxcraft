@@ -19,7 +19,7 @@ public enum LuxColor {
 
 	public final float r, g, b;
 
-	private final int col;
+	public final int col;
 
 	LuxColor(int c, String name, float r, float g, float b) {
 		this(c, name, r, g, b, true);
@@ -36,6 +36,8 @@ public enum LuxColor {
 	}
 
 	public static LuxColor col(int col) {
+		if (col >= n)
+			col = 0;
 		return LuxColor.values()[col];
 	}
 

@@ -10,8 +10,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import scala.util.Random;
 
+import com.rwtema.luxcraft.LuxHelper;
 import com.rwtema.luxcraft.block.BlockLuxLaser;
-import com.rwtema.luxcraft.block.LaserType;
 import com.rwtema.luxcraft.luxapi.ILaserActivated;
 import com.rwtema.luxcraft.luxapi.ILaserTile;
 import com.rwtema.luxcraft.luxapi.ILuxContainer;
@@ -41,7 +41,7 @@ public class TileEntityLuxLaser extends TileEntity implements ILaserTile {
 	Random rand = new Random();
 
 	public void updateEntity() {
-		if (this.worldObj.getTotalWorldTime() % 4 != 0)
+		if (!LuxHelper.shouldProcess(worldObj))
 			return;
 
 		Pos inv = (new Pos(xCoord, yCoord, zCoord)).advance(BlockLuxLaser.getDirection(getBlockMetadata()).getOpposite());

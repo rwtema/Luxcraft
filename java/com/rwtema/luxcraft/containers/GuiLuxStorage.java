@@ -36,7 +36,7 @@ public class GuiLuxStorage extends GuiLuxContainer {
 			int dx = (mouse_x - 9) / 23;
 			if (dx >= 0 & dx < 7) {
 				LuxColor c = LuxColor.col(dx);
-				temp = c.getLocalizedName() + ": " + formatLux(getLux().color(c));
+				temp = c.getLocalizedName() + ": " + formatLux(getLux().luxLevel(c));
 				this.fontRendererObj.drawString(temp, (this.xSize - this.fontRendererObj.getStringWidth(temp)) / 2, 16, c.displayColor());
 
 			}
@@ -56,7 +56,7 @@ public class GuiLuxStorage extends GuiLuxContainer {
 		for (byte i = 0; i < 8; i++) {
 			LuxColor c = LuxColor.col(i);
 			GL11.glColor4d(c.r, c.g, c.b, 1);
-			h = (int) (getLux().color(c) / storageInventory.MaxLuxLevel(c) * 131);
+			h = (int) (getLux().luxLevel(c) / storageInventory.MaxLuxLevel(c) * 131);
 			this.drawTexturedModalRect(var5 + 9 + 23 * i, var6 + 27 + 131 - h, 199, 131 - h, 20, h);
 		}
 

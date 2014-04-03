@@ -10,10 +10,10 @@ import net.minecraft.util.Vec3;
 
 import com.rwtema.luxcraft.luxapi.LuxStack;
 
-public abstract class TileEntityLuxContainerBaseInventory extends TileEntityLuxContainerBase implements IInventory, IInvBasic {
+public abstract class TileEntityLuxTransmitterBaseInventory extends TileEntityLuxTransmitterBase implements IInventory, IInvBasic {
 	public abstract IInventory getInv();
 
-	public TileEntityLuxContainerBaseInventory(LuxStack maxLevels) {
+	public TileEntityLuxTransmitterBaseInventory(LuxStack maxLevels) {
 		super(maxLevels);
 		if (getInv() instanceof InventoryBasic)
 			((InventoryBasic) getInv()).func_110134_a(this);

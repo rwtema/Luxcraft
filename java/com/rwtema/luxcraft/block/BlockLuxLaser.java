@@ -23,6 +23,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import com.rwtema.luxcraft.Luxcraft;
 import com.rwtema.luxcraft.LuxcraftCreativeTab;
 import com.rwtema.luxcraft.luxapi.LuxColor;
+import com.rwtema.luxcraft.tiles.LaserType;
 import com.rwtema.luxcraft.tiles.TileEntityLuxLaser;
 import com.rwtema.luxcraft.tiles.TileEntityLuxLaserClient;
 

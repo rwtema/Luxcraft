@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 
 import com.rwtema.luxcraft.Luxcraft;
 import com.rwtema.luxcraft.LuxcraftCreativeTab;
-import com.rwtema.luxcraft.tiles.TileEntityLuxContainerBase;
+import com.rwtema.luxcraft.tiles.TileEntityLuxTransmitterBase;
 import com.rwtema.luxcraft.tiles.TileEntityLuxGenerator;
 import com.rwtema.luxcraft.tiles.TileEntityLuxStorage;
 
@@ -64,7 +64,7 @@ public class BlockLuxStorage extends BlockLuxContainer {
 	}
 
 	@Override
-	public TileEntityLuxContainerBase createTileEntity(World var1, int meta) {
+	public TileEntityLuxTransmitterBase createTileEntity(World var1, int meta) {
 		return new TileEntityLuxStorage();
 	}
 
