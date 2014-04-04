@@ -1,18 +1,12 @@
 package com.rwtema.luxcraft;
 
-import net.minecraft.client.network.NetHandlerPlayClient;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class LuxEventHandler {
 
-	@SubscribeEvent
-	public void playerUse(PlayerInteractEvent event) {
+    @SubscribeEvent
+    public void playerUse(PlayerInteractEvent event) {
 //
 //		if (event.action == event.action.RIGHT_CLICK_BLOCK || event.action == event.action.RIGHT_CLICK_AIR) {
 //			ItemStack curItem = event.entityPlayer.getCurrentEquippedItem();
@@ -36,27 +30,27 @@ public class LuxEventHandler {
 //			}
 //		}
 
-		// // dont double place string on dark sheen blocks
-		// if (event.action == event.action.RIGHT_CLICK_BLOCK &
-		// !event.entityPlayer.isSneaking()) {
-		// if (event.entityPlayer.worldObj.getBlock(event.x, event.y - 1,
-		// event.z) == Luxcraft.darkBlock) {
-		// ItemStack curItem = event.entityPlayer.getCurrentEquippedItem();
-		// if (curItem != null) {
-		// if (event.entityPlayer.getCurrentEquippedItem().getItem() ==
-		// Items.string) {
-		// if (event.entityPlayer.worldObj.getBlock(event.x, event.y, event.z)
-		// == Blocks.tripwire) {
-		// event.setCanceled(true);
-		// }
-		// if (event.entityPlayer.worldObj.getBlock(event.x, event.y, event.z)
-		// == Blocks.redstone_wire) {
-		// event.setCanceled(true);
-		// }
-		// }
-		// }
-		//
-		// }
-		// }
-	}
+        // // dont double place string on dark sheen blocks
+        // if (event.action == event.action.RIGHT_CLICK_BLOCK &
+        // !event.entityPlayer.isSneaking()) {
+        // if (event.entityPlayer.worldObj.getBlock(event.x, event.y - 1,
+        // event.z) == Luxcraft.darkBlock) {
+        // ItemStack curItem = event.entityPlayer.getCurrentEquippedItem();
+        // if (curItem != null) {
+        // if (event.entityPlayer.getCurrentEquippedItem().getItem() ==
+        // Items.string) {
+        // if (event.entityPlayer.worldObj.getBlock(event.x, event.y, event.z)
+        // == Blocks.tripwire) {
+        // event.setCanceled(true);
+        // }
+        // if (event.entityPlayer.worldObj.getBlock(event.x, event.y, event.z)
+        // == Blocks.redstone_wire) {
+        // event.setCanceled(true);
+        // }
+        // }
+        // }
+        //
+        // }
+        // }
+    }
 }

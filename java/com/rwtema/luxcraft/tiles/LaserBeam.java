@@ -1,103 +1,96 @@
 package com.rwtema.luxcraft.tiles;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
+import com.rwtema.luxcraft.luxapi.ILaser;
+import com.rwtema.luxcraft.luxapi.IReflector;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import com.rwtema.luxcraft.luxapi.ILaser;
-import com.rwtema.luxcraft.luxapi.IReflector;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class LaserBeam implements Iterator<Pos>, ILaser, java.lang.Iterable<Pos> {
 
-	public List collidedEntities = null;
+    public final Pos start;
+    private final ArrayList<Pos> path = new ArrayList<Pos>();
+    public List collidedEntities = null;
+    public Pos pos = new Pos();
+    public float beamsize;
+    public boolean started, simulating;
+    public float damage;
+    public World world;
+    public int maxLength;
+    public int curPos;
+    public boolean changed = false;
+    ForgeDirection initdir, dir = null;
+    private boolean finished;
 
-	ForgeDirection initdir, dir = null;
+    public LaserBeam(World world, int xstart, int ystart, int zstart, ForgeDirection direction, LaserType type) {
+        this.world = world;
 
-	private final ArrayList<Pos> path = new ArrayList<Pos>();
+        this.start = new Pos(xstart, ystart, zstart);
 
-	public Pos pos = new Pos();
-	public final Pos start;
+        this.initdir = direction;
 
-	public float beamsize;
-	public boolean started, simulating;
-	public float damage;
-	public World world;
-	public int maxLength;
-	public int curPos;
+        this.maxLength = type.range;
 
-	public boolean changed = false;
+        path.ensureCapacity(this.maxLength);
 
-	private boolean finished;
+        while (path.size() < this.maxLength)
+            path.add(null);
 
-	public LaserBeam(World world, int xstart, int ystart, int zstart, ForgeDirection direction, LaserType type) {
-		this.world = world;
+        curPos = 0;
 
-		this.start = new Pos(xstart, ystart, zstart);
+        this.beamsize = type.size;
 
-		this.initdir = direction;
+        this.damage = type.damage;
 
-		this.maxLength = type.range;
+        this.finished = false;
 
-		path.ensureCapacity(this.maxLength);
+        startProjection();
+    }
 
-		while (path.size() < this.maxLength)
-			path.add(null);
+    public boolean advance() {
 
-		curPos = 0;
+        return true;
+    }
 
-		this.beamsize = type.size;
+    public LaserBeam startProjection() {
+        finished = false;
+        collidedEntities = null;
 
-		this.damage = type.damage;
+        dir = initdir;
+        pos.x = start.x;
+        pos.y = start.y;
+        pos.z = start.z;
+        changed = false;
+        path.set(0, pos);
+        curPos = 1;
 
-		this.finished = false;
+        return this;
+    }
 
-		startProjection();
-	}
+    @Override
+    public boolean hasNext() {
 
-	public boolean advance() {
+        if (finished) {
+            checkFinished();
+            return false;
+        }
 
-		return true;
-	}
+        pos = pos.copy().advance(dir);
+        //
+        // if (pos.equals(start)) {
+        // setFinished();
+        // return true;
+        // }
 
-	public LaserBeam startProjection() {
-		finished = false;
-		collidedEntities = null;
-
-		dir = initdir;
-		pos.x = start.x;
-		pos.y = start.y;
-		pos.z = start.z;
-		changed = false;
-		path.set(0, pos);
-		curPos = 1;
-
-		return this;
-	}
-
-	@Override
-	public boolean hasNext() {
-
-		if (finished) {
-			checkFinished();
-			return false;
-		}
-
-		pos = pos.copy().advance(dir);
-		//
-		// if (pos.equals(start)) {
-		// setFinished();
-		// return true;
-		// }
-
-		if (curPos >= this.getMaxLength()) {
-			setFinished();
-			checkFinished();
-			return false;
-		}
+        if (curPos >= this.getMaxLength()) {
+            setFinished();
+            checkFinished();
+            return false;
+        }
 //
 //		if (!world.blockExists(pos.x, pos.y, pos.z)) {
 //			setFinished();
@@ -105,94 +98,94 @@ public class LaserBeam implements Iterator<Pos>, ILaser, java.lang.Iterable<Pos>
 //			return false;
 //		}
 
-		if (world.getBlockLightOpacity(pos.x, pos.y, pos.z) >= 2) {
-			setFinished();
-			return true;
-		}
+        if (world.getBlockLightOpacity(pos.x, pos.y, pos.z) >= 2) {
+            setFinished();
+            return true;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	public boolean isChanged() {
-		return changed;
-	}
+    public boolean isChanged() {
+        return changed;
+    }
 
-	public void setFinished() {
-		finished = true;
-	}
+    public void setFinished() {
+        finished = true;
+    }
 
-	public void checkFinished() {
-		if (curPos < this.getMaxLength() && path.get(curPos) != null) {
-			changed = true;
-			for (int i = curPos; i < path.size(); i++) {
-				path.set(i, null);
-			}
-		}
-	}
+    public void checkFinished() {
+        if (curPos < this.getMaxLength() && path.get(curPos) != null) {
+            changed = true;
+            for (int i = curPos; i < path.size(); i++) {
+                path.set(i, null);
+            }
+        }
+    }
 
-	@Override
-	public Pos next() {
-		Block b;
-		if ((b = world.getBlock(pos.x, pos.y, pos.z)) instanceof IReflector)
-			dir = ((IReflector) b).newDir(dir, world, pos.x, pos.y, pos.z, this);
-		Pos t = path.get(curPos);
-		if (t == null || !pos.equals(t))
-			changed = true;
+    @Override
+    public Pos next() {
+        Block b;
+        if ((b = world.getBlock(pos.x, pos.y, pos.z)) instanceof IReflector)
+            dir = ((IReflector) b).newDir(dir, world, pos.x, pos.y, pos.z, this);
+        Pos t = path.get(curPos);
+        if (t == null || !pos.equals(t))
+            changed = true;
 
-		path.set(curPos, pos);
-		curPos++;
+        path.set(curPos, pos);
+        curPos++;
 
-		return pos;
-	}
+        return pos;
+    }
 
-	public Pos getPos() {
-		return pos;
-	}
+    public Pos getPos() {
+        return pos;
+    }
 
-	@Override
-	public void remove() {
-		setFinished();
-		checkFinished();
-	}
+    @Override
+    public void remove() {
+        setFinished();
+        checkFinished();
+    }
 
-	@Override
-	public int getLength() {
-		return curPos;
-	}
+    @Override
+    public int getLength() {
+        return curPos;
+    }
 
-	public int getEffectiveLength() {
-		int l = curPos;
-		return l >= 2 ? l : 0;
-	}
+    public int getEffectiveLength() {
+        int l = curPos;
+        return l >= 2 ? l : 0;
+    }
 
-	@Override
-	public int getMaxLength() {
-		return this.maxLength;
-	}
+    @Override
+    public int getMaxLength() {
+        return this.maxLength;
+    }
 
-	public void setMaxLength(int length) {
-		this.maxLength = length;
-	}
+    public void setMaxLength(int length) {
+        this.maxLength = length;
+    }
 
-	@Override
-	public List<Pos> getPath() {
-		return path.subList(0, curPos);
-	}
+    @Override
+    public List<Pos> getPath() {
+        return path.subList(0, curPos);
+    }
 
-	public void preCalcFullPath() {
-		LaserBeam laser = this.startProjection();
-		while (laser.hasNext())
-			laser.next();
-	}
+    public void preCalcFullPath() {
+        LaserBeam laser = this.startProjection();
+        while (laser.hasNext())
+            laser.next();
+    }
 
-	@Override
-	public Pos getStart() {
-		return start;
-	}
+    @Override
+    public Pos getStart() {
+        return start;
+    }
 
-	@Override
-	public Iterator<Pos> iterator() {
-		return this.startProjection();
-	}
+    @Override
+    public Iterator<Pos> iterator() {
+        return this.startProjection();
+    }
 
 }

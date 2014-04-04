@@ -4,9 +4,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public interface ILuxTransmitter extends ILuxContainer {
-	public boolean sameContainer(TileEntity other);
+    public boolean sameContainer(TileEntity other);
 
-	public LuxStack extractLux(LuxStack lux, Transfer simulate);
+    public LuxStack extractLux(LuxStack lux, Transfer simulate);
 
-	public LuxStack getTransmissionPacket(ForgeDirection side);
+    public LuxStack getTransmissionPacket(ForgeDirection side);
 }

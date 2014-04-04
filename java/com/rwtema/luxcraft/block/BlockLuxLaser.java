@@ -1,8 +1,15 @@
 package com.rwtema.luxcraft.block;
 
-import java.util.List;
-
-import net.minecraft.block.Block;
+import com.rwtema.luxcraft.Luxcraft;
+import com.rwtema.luxcraft.LuxcraftCreativeTab;
+import com.rwtema.luxcraft.block_base.BlockMultiBlock;
+import com.rwtema.luxcraft.block_base.BoxModel;
+import com.rwtema.luxcraft.luxapi.LuxColor;
+import com.rwtema.luxcraft.tiles.LaserType;
+import com.rwtema.luxcraft.tiles.TileEntityLuxLaser;
+import com.rwtema.luxcraft.tiles.TileEntityLuxLaserClient;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -20,180 +27,135 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import com.rwtema.luxcraft.Luxcraft;
-import com.rwtema.luxcraft.LuxcraftCreativeTab;
-import com.rwtema.luxcraft.luxapi.LuxColor;
-import com.rwtema.luxcraft.tiles.LaserType;
-import com.rwtema.luxcraft.tiles.TileEntityLuxLaser;
-import com.rwtema.luxcraft.tiles.TileEntityLuxLaserClient;
+import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+public class BlockLuxLaser extends BlockMultiBlock {
+    public static IIcon[] cols = new IIcon[LuxColor.n];
 
-public class BlockLuxLaser extends Block {
-	public static IIcon[] cols = new IIcon[LuxColor.n];
+    public BlockLuxLaser() {
+        super(Material.rock);
+        this.setCreativeTab(LuxcraftCreativeTab.instance);
+        this.setBlockName("luxcraft:luxLaser");
+        this.setBlockTextureName("luxcraft:luxLaser");
+        this.setLightOpacity(0);
+    }
 
-	public BlockLuxLaser() {
-		super(Material.rock);
-		this.setCreativeTab(LuxcraftCreativeTab.instance);
-		this.setBlockName("luxcraft:luxLaser");
-		this.setBlockTextureName("luxcraft:luxLaser");
-		this.setLightOpacity(0);
-	}
+    public static ForgeDirection getDirection(int metadata) {
+        return ForgeDirection.getOrientation(metadata % 6);
+    }
 
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister register) {
-		super.registerBlockIcons(register);
+    public static LaserType getLaser(int metadata) {
+        if (metadata < 6)
+            return LaserType.Standard;
+        else
+            return LaserType.Advanced;
+    }
 
-		for (int i = 0; i < LuxColor.n; i++) {
-			if (Luxcraft.colorBlind)
-				cols[i] = register.registerIcon("luxcraft:lux_" + LuxColor.col(i).shortname);
-			else
-				cols[i] = register.registerIcon("luxcraft:lux");
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister register) {
+        super.registerBlockIcons(register);
 
-		}
-	}
+        for (int i = 0; i < LuxColor.n; i++) {
+            if (Luxcraft.colorBlind)
+                cols[i] = register.registerIcon("luxcraft:lux_" + LuxColor.col(i).shortname);
+            else
+                cols[i] = register.registerIcon("luxcraft:lux");
 
-	/**
-	 * Returns a bounding box from the pool of bounding boxes (this means this
-	 * box can change after the pool has been cleared to be reused)
-	 */
-	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4) {
-		this.setBlockBoundsBasedOnState(par1World, par2, par3, par4);
-		return super.getCollisionBoundingBoxFromPool(par1World, par2, par3, par4);
-	}
+        }
+    }
 
-	@SideOnly(Side.CLIENT)
-	/**
-	 * Returns the bounding box of the wired rectangular prism to render.
-	 */
-	@Override
-	public AxisAlignedBB getSelectedBoundingBoxFromPool(World par1World, int par2, int par3, int par4) {
-		this.setBlockBoundsBasedOnState(par1World, par2, par3, par4);
-		return super.getSelectedBoundingBoxFromPool(par1World, par2, par3, par4);
-	}
+    /**
+     * Returns a bounding box from the pool of bounding boxes (this means this
+     * box can change after the pool has been cleared to be reused)
+     */
+    @Override
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4) {
+        this.setBlockBoundsBasedOnState(par1World, par2, par3, par4);
+        return super.getCollisionBoundingBoxFromPool(par1World, par2, par3, par4);
+    }
 
-	/**
-	 * Updates the blocks bounds based on its current state. Args: world, x, y,
-	 * z
-	 */
-	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
-		this.setBounds(par1IBlockAccess.getBlockMetadata(par2, par3, par4));
-	}
+    @SideOnly(Side.CLIENT)
+    /**
+     * Returns the bounding box of the wired rectangular prism to render.
+     */
+    @Override
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World par1World, int par2, int par3, int par4) {
+        this.setBlockBoundsBasedOnState(par1World, par2, par3, par4);
+        return super.getSelectedBoundingBoxFromPool(par1World, par2, par3, par4);
+    }
 
-	public static ForgeDirection getDirection(int metadata) {
-		return ForgeDirection.getOrientation(metadata % 6);
-	}
+    @Override
+    public int onBlockPlaced(World par1World, int par2, int par3, int par4, int par5, float par6, float par7, float par8, int par9) {
+        return par5;
+    }
 
-	public void setBounds(int metadata) {
-		float h = 0.125F;
+    @Override
+    public boolean hasTileEntity(int metadata) {
+        return true;
+    }
 
-		if (metadata == 0) {
-			this.setBlockBounds(0.0F, 1.0F - h, 0.0F, 1.0F, 1.0F, 1.0F);
-		}
+    @Override
+    public TileEntity createTileEntity(World world, int meta) {
+        if (world.isRemote)
+            return new TileEntityLuxLaserClient();
+        else
+            return new TileEntityLuxLaser();
+    }
 
-		if (metadata == 1) {
-			this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, h, 1.0F);
-		}
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float par7, float par8, float par9) {
 
-		if (metadata == 2) {
-			this.setBlockBounds(0.0F, 0.0F, 1.0F - h, 1.0F, 1.0F, 1.0F);
-		}
+        if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.stick) {
+            if (world.isRemote)
+                return true;
+            int data = world.getBlockMetadata(x, y, z);
+            world.setBlockMetadataWithNotify(x, y, z, (data + 1) % 6, 0);
+            return true;
+        }
 
-		if (metadata == 3) {
-			this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, h);
-		}
+        if (player instanceof EntityPlayerMP) {
+            TileEntityLuxLaser laser = (TileEntityLuxLaser) world.getTileEntity(x, y, z);
+            NBTTagCompound tag = new NBTTagCompound();
+            laser.writeToNBT(tag);
 
-		if (metadata == 4) {
-			this.setBlockBounds(1.0F - h, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-		}
+            ((EntityPlayerMP) player).addChatMessage(new ChatComponentText("" + tag.toString()));
+        }
 
-		if (metadata == 5) {
-			this.setBlockBounds(0.0F, 0.0F, 0.0F, h, 1.0F, 1.0F);
-		}
-	}
+        return false;
+    }
 
-	/**
-	 * Is this block (a) opaque and (b) a full 1m cube? This determines whether
-	 * or not to render the shared face of two adjacent blocks and also whether
-	 * the player can attach torches, redstone wire, etc to this block.
-	 */
-	@Override
-	public boolean isOpaqueCube() {
-		return false;
-	}
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+        par3List.add(new ItemStack(par1, 1, 3));
+    }
 
-	/**
-	 * If this block doesn't render as an ordinary block it will return False
-	 * (examples: signs, buttons, stairs, etc)
-	 */
+    @Override
+    public void prepareForRender(String label) {
 
-	@Override
-	public boolean renderAsNormalBlock() {
-		return false;
-	}
+    }
 
-	/**
-	 * Sets the block's bounds for rendering it as an item
-	 */
-	public void setBlockBoundsForItemRender() {
-		float var3 = 0.125F;
-		this.setBlockBounds(0.0F, 1.0F - var3, 0.0F, 1.0F, 1.0F, 1.0F);
-	}
+    @Override
+    public BoxModel getWorldModel(IBlockAccess world, int x, int y, int z) {
+        int metadata = world.getBlockMetadata(x, y, z);
 
-	@Override
-	public int onBlockPlaced(World par1World, int par2, int par3, int par4, int par5, float par6, float par7, float par8, int par9) {
-		return par5;
-	}
+        BoxModel model = this.getInventoryModel(0);
+        model.rotateToSide(ForgeDirection.getOrientation(metadata % 6).getOpposite());
 
-	@Override
-	public boolean hasTileEntity(int metadata) {
-		return true;
-	}
+        return model;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, int meta) {
-		if (world.isRemote)
-			return new TileEntityLuxLaserClient();
-		else
-			return new TileEntityLuxLaser();
-	}
-
-	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float par7, float par8, float par9) {
-
-		if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.stick) {
-			if (world.isRemote)
-				return true;
-			int data = world.getBlockMetadata(x, y, z);
-			world.setBlockMetadataWithNotify(x, y, z, (data + 1) % 6, 0);
-			return true;
-		}
-
-		if (player instanceof EntityPlayerMP) {
-			TileEntityLuxLaser laser = (TileEntityLuxLaser) world.getTileEntity(x, y, z);
-			NBTTagCompound tag = new NBTTagCompound();
-			laser.writeToNBT(tag);
-
-			((EntityPlayerMP) player).addChatMessage(new ChatComponentText("" + tag.toString()));
-		}
-
-		return false;
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-		par3List.add(new ItemStack(par1, 1, 3));
-	}
-
-	public static LaserType getLaser(int metadata) {
-		if (metadata < 6)
-			return LaserType.Standard;
-		else
-			return LaserType.Advanced;
-	}
-
+    @Override
+    public BoxModel getInventoryModel(int metadata) {
+        BoxModel model = new BoxModel();
+        model.addBoxI(0, 0, 0, 16, 2, 16);
+        model.addBoxI(3, 2, 3, 16 - 3, 4, 16 - 3);
+        model.addBoxI(5, 4, 5, 16 - 5, 6, 16 - 5);
+        model.addBoxI(3, 4, 3, 4, 10, 4);
+        model.addBoxI(3, 4, 3, 4, 10, 4).rotateY(1);
+        model.addBoxI(3, 4, 3, 4, 10, 4).rotateY(2);
+        model.addBoxI(3, 4, 3, 4, 10, 4).rotateY(3);
+        model.hollowBoxI(3, 10, 3, 5, 5, 11, 11, 13, 11, 13);
+        return model;
+    }
 }

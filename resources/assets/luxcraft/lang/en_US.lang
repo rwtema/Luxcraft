@@ -10,6 +10,17 @@ tile.luxcraft:luxGenerator.7.name=Black Lux Generator
 tile.luxcraft:luxReflector.name=Reflector
 tile.luxcraft:luxLaser.name=Lux Laser
 
+tile.luxcraft:stygianBlack.name=Stygian Violet
+tile.luxcraft:stygian.0.name=Stygian Block
+tile.luxcraft:stygian.1.name=Stygian Bricks
+tile.luxcraft:stygian.2.name=Stygian Glass
+tile.luxcraft:stygian.3.name=Darkened Stygian
+tile.luxcraft:stygian.4.name=Carved Stygian
+tile.luxcraft:stygian.5.name=Spiral Stygian
+tile.luxcraft:stygian.6.name=Polished Stygian
+tile.luxcraft:stygian.7.name="Naughty Pictures" Carved Stygian
+
+
 lux.color.0=White
 lux.color.1=Red
 lux.color.2=Green

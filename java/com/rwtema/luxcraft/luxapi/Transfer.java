@@ -1,11 +1,11 @@
 package com.rwtema.luxcraft.luxapi;
 
 public enum Transfer {
-	Perform(true), Simulate(false);
+    Perform(true), Simulate(false);
 
-	public final boolean perform;
+    public final boolean perform;
 
-	Transfer(boolean perform) {
-		this.perform = perform;
-	}
+    Transfer(boolean perform) {
+        this.perform = perform;
+    }
 }
