@@ -1,5 +1,6 @@
 package com.rwtema.luxcraft;
 
+import com.rwtema.luxcraft.block.fluid.RenderCustomLiquid;
 import com.rwtema.luxcraft.block_base.RenderBlockMultiBlock;
 import com.rwtema.luxcraft.debug.CommandClientDebug;
 import com.rwtema.luxcraft.render.*;
@@ -12,13 +13,17 @@ import net.minecraftforge.client.MinecraftForgeClient;
 
 public class LuxcraftClient extends LuxcraftProxy {
 
+
+
     @Override
     public void registerRenderInformation() {
         LogHelper.info("Registering Rendering Info");
         prismRenderingID = RenderingRegistry.getNextAvailableRenderId();
         multiBoxRenderingID = RenderingRegistry.getNextAvailableRenderId();
+        fluidRenderingID = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new RenderPrism());
         RenderingRegistry.registerBlockHandler(new RenderBlockMultiBlock());
+        RenderingRegistry.registerBlockHandler(new RenderCustomLiquid());
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLuxLaserClient.class, new RenderTileEntityLaser());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEnderCrystal.class, new RenderTileEntityEnderCrystal());

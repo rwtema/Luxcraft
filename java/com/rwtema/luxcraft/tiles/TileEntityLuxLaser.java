@@ -156,8 +156,7 @@ public class TileEntityLuxLaser extends TileEntity implements ILaserTile {
         if (changed)
             this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 
-        for (int i = 0; i < 8; i++)
-            laserLengths[i] = newLaserLengths[i];
+        System.arraycopy(newLaserLengths, 0, laserLengths, 0, 8);
     }
 
     public Packet getDescriptionPacket() {

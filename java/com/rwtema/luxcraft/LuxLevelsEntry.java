@@ -34,10 +34,7 @@ public class LuxLevelsEntry {
 
     public boolean itemMatches(ItemStack otherItem) {
         if (item == otherItem.getItem()) {
-            if (item.getHasSubtypes() & otherItem.getItemDamage() != -1)
-                return otherItem.getItemDamage() == metadata;
-            else
-                return true;
+            return !(item.getHasSubtypes() & otherItem.getItemDamage() != -1) || otherItem.getItemDamage() == metadata;
         }
         return false;
     }

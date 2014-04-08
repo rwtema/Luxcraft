@@ -61,7 +61,7 @@ public class TileEntityLuxGenerator extends TileEntityLuxTransmitterBaseInventor
     @Override
     public LuxStack insertLux(LuxStack lux, Transfer simulate) {
         float p = lux.lux[getType().index];
-        p = Math.min(p, this.maxLevel - this.level);
+        p = Math.min(p, maxLevel - this.level);
 
         if (simulate.perform)
             this.level += p;
@@ -109,10 +109,8 @@ public class TileEntityLuxGenerator extends TileEntityLuxTransmitterBaseInventor
                 }
                 return false;
             case Cyan:
-                if (!this.worldObj.getEntitiesWithinAABB(EntityLiving.class,
-                        (AxisAlignedBB.getAABBPool().getAABB(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord).addCoord(0.5, 0.5, 0.5)).expand(1.5, 1.5, 1.5)).isEmpty())
-                    return true;
-                return false;
+                return !this.worldObj.getEntitiesWithinAABB(EntityLiving.class,
+                        (AxisAlignedBB.getAABBPool().getAABB(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord).addCoord(0.5, 0.5, 0.5)).expand(1.5, 1.5, 1.5)).isEmpty();
 
             case Green:
                 for (Pos p : new PosIteratorCube(xCoord, yCoord, zCoord, 1)) {

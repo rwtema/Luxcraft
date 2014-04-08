@@ -27,6 +27,6 @@ public class Pos {
     }
 
     public boolean equals(Pos t) {
-        return t == null ? false : x == t.x && y == t.y && z == t.z;
+        return t != null && x == t.x && y == t.y && z == t.z;
     }
 }

@@ -95,9 +95,6 @@ public class RenderPrism implements ISimpleBlockRenderingHandler {
 
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
         Tessellator tes = Tessellator.instance;
-        int texture = 0;
-        int tx = (texture & 15) << 4;
-        int ty = texture & 240;
 
         int b = block.getMixedBrightnessForBlock(world, x, y, z);
 
@@ -118,8 +115,6 @@ public class RenderPrism implements ISimpleBlockRenderingHandler {
         int side1 = BlockLuxReflector.getSide1(data);
         int side2 = BlockLuxReflector.getSide2(data);
 
-        int dx1 = Facing.offsetsXForSide[side1], dy1 = Facing.offsetsYForSide[side1], dz1 = Facing.offsetsZForSide[side1];
-        int dx2 = Facing.offsetsXForSide[side2], dy2 = Facing.offsetsYForSide[side2], dz2 = Facing.offsetsZForSide[side2];
 
         switch (data) {
             case 0:

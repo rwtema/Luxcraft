@@ -31,6 +31,7 @@ public class ItemDecorative extends Item {
         return icons[damage];
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void getSubItems(Item item, CreativeTabs p_150895_2_, List list) {
         for (int i = 1; i < items.length; i++)

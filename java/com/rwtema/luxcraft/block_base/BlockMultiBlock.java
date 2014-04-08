@@ -45,6 +45,7 @@ public abstract class BlockMultiBlock extends Block implements IMultiBoxBlock {
      * boxes to the list if they intersect the mask.) Parameters: World, X, Y,
      * Z, mask, list, colliding entity
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void addCollisionBoxesToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity) {
         List models = this.getWorldModel(par1World, par2, par3, par4);

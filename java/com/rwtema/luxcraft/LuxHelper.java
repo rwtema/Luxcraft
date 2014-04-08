@@ -15,9 +15,6 @@ public class LuxHelper {
             {3, 3, 3, 2, 3, 3, 1}};
     public final static byte[][] convOrder = {{1, 2, 3, 4, 5, 6, 7}, {2, 1, 5, 6, 3, 4, 7}, {3, 1, 6, 7, 2, 4, 5}, {4, 1, 5, 7, 2, 3, 6}, {5, 2, 1, 3, 4, 6, 7}, {6, 3, 1, 2, 4, 5, 7},
             {7, 4, 1, 2, 3, 5, 6}};
-    private final static int[] dx = {0, 0, 0, 0, 1, -1};
-    private final static int[] dy = {1, -1, 0, 0, 0, 0};
-    private final static int[] dz = {0, 0, 1, -1, 0, 0};
     public static DamageSource[] luxDamage = {DamageSource.cactus, DamageSource.inFire, DamageSource.cactus, DamageSource.cactus, DamageSource.cactus, DamageSource.inFire, DamageSource.wither};
 
     public static String display(int amount) {

@@ -53,7 +53,7 @@ public class ContainerLuxInfuser extends ContainerLuxContainer {
             }
 
             if (var5.stackSize == 0) {
-                var4.putStack((ItemStack) null);
+                var4.putStack(null);
             } else {
                 var4.onSlotChanged();
             }

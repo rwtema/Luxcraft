@@ -7,14 +7,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class OreInfusionRecipe implements IInfusionRecipe {
     public static final ArrayList<String> oreList = new ArrayList<String>();
 
     static {
-        for (String ore : new String[]{null, "oreIron", "oreGold", "oreLapis", "oreDiamond", "oreRedstone", "oreEmerald", "oreQuartz", "oreCoal", "oreCopper", "oreSilver", "oreLead", "oreTin"}) {
-            oreList.add(ore);
-        }
+        Collections.addAll(oreList, null, "oreIron", "oreGold", "oreLapis", "oreDiamond", "oreRedstone", "oreEmerald", "oreQuartz", "oreCoal", "oreCopper", "oreSilver", "oreLead", "oreTin");
     }
     String oreDicName;
 
@@ -37,10 +36,8 @@ public class OreInfusionRecipe implements IInfusionRecipe {
 
     @Override
     public boolean matches(ItemStack other) {
-        if (other == null)
-            return false;
+        return other != null && OreDictionary.getOreID(other) == OreDictionary.getOreID(oreDicName);
 
-        return OreDictionary.getOreID(other) == OreDictionary.getOreID(oreDicName);
     }
 
     @Override

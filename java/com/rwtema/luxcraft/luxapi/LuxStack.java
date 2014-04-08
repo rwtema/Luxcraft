@@ -130,8 +130,7 @@ public class LuxStack {
     }
 
     public LuxStack copyFrom(LuxStack other) {
-        for (int i = 0; i < other.lux.length; i++)
-            this.lux[i] = other.lux[i];
+        System.arraycopy(other.lux, 0, this.lux, 0, other.lux.length);
         return this;
     }
 

@@ -72,6 +72,7 @@ public class BlockLuxTorch extends BlockMultiBlock {
             ParticleHandler.spawnParticle(new EntityLaserFX(world, x + 0.5, y + 0.5, z + 0.5, 3, LuxColor.col(world.getBlockMetadata(x, y, z))));
     }
 
+    @SuppressWarnings("unchecked")
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {

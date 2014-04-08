@@ -30,10 +30,8 @@ public class BlockEnderCrystal extends Block {
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer p_149727_5_, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
-        if (world.isRemote)
-            return true;
+        return world.isRemote || world.func_147480_a(x, y, z, true);
 
-        return world.func_147480_a(x, y, z, true);
     }
 
     @Override

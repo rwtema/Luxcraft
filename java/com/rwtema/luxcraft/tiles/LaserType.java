@@ -2,7 +2,7 @@ package com.rwtema.luxcraft.tiles;
 
 public enum LaserType {
     Standard(32, 1, 0, 0.05F, 0.0F, 0.9F, 0.8F), //
-    Advanced(16, 1 * 64, 4, 0.1F, 0.0F, 0.9F, 0.8F);
+    Advanced(16, 64, 4, 0.1F, 0.0F, 0.9F, 0.8F);
 
     public final int range;
     public final float maxLux;

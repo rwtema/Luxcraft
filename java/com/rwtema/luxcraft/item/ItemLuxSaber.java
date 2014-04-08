@@ -63,6 +63,7 @@ public class ItemLuxSaber extends ItemSword {
         this.itemIcon = register.registerIcon("luxcraft:SaberBase1");
     }
 
+    @SuppressWarnings("unchecked")
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubItems(Item p_150895_1_, CreativeTabs p_150895_2_, List p_150895_3_) {

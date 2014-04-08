@@ -1,10 +1,13 @@
 package com.rwtema.luxcraft;
 
 import com.rwtema.luxcraft.block.*;
+import com.rwtema.luxcraft.block.fluid.BlockLiquidMirror;
 import com.rwtema.luxcraft.block.fluid.BlockStygianBlack;
 import com.rwtema.luxcraft.block.fluid.BlockVoidGas;
 import com.rwtema.luxcraft.containers.GuiHandler;
 import com.rwtema.luxcraft.item.*;
+import com.rwtema.luxcraft.textures.connectedtextures.BlockConnectedTexturesTest;
+import com.rwtema.luxcraft.textures.connectedtextures.ConnectedTexturesHelper;
 import com.rwtema.luxcraft.tiles.*;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -35,11 +38,9 @@ public class Luxcraft {
     public static BlockLuxDetector luxDetector;
     public static BlockLuxStorage luxStorage;
     public static BlockLuxInfuser luxInfuser;
-
     public static BlockVoidGas voidGas;
-
     public static BlockEnderCrystal enderCrystal;
-
+    public static BlockLiquidMirror liquidMirror;
     public static BlockStygian stygianBlock;
 
     public static ItemLuxGem luxGem;
@@ -57,13 +58,13 @@ public class Luxcraft {
     @SidedProxy(clientSide = "com.rwtema.luxcraft.LuxcraftClient", serverSide = "com.rwtema.luxcraft.LuxcraftProxy")
     public static LuxcraftProxy proxy;
 
+
     public Item registerItem(Item item) {
         if ("item.null".equals(item.getUnlocalizedName()))
             throw (new RuntimeException(String.format("Item is missing a proper name: %s", item.getClass().getName())));
 
-
         LogHelper.info("Registering Item: \"%s\" as \"%s\"", item.getClass().getSimpleName(), item.getUnlocalizedName().substring("item.".length()));
-        GameRegistry.registerItem(item, item.getUnlocalizedName().substring("item.".length()));
+        GameRegistry.registerItem(item, item.getUnlocalizedName().substring("item.".length()).replaceAll("luxcraft:",""));
         return item;
     }
 
@@ -76,7 +77,7 @@ public class Luxcraft {
             throw (new RuntimeException(String.format("Block is missing a proper name: %s", block.getClass().getName())));
 
         LogHelper.info("Registering Block: \"%s\" as \"%s\" with item \"%s\"", block.getClass().getSimpleName(), block.getUnlocalizedName().substring("tile.".length()), itemblock.getSimpleName());
-        return GameRegistry.registerBlock(block, itemblock, block.getUnlocalizedName().substring("tile.".length()));
+        return GameRegistry.registerBlock(block, itemblock, block.getUnlocalizedName().substring("tile.".length()).replaceAll("luxcraft:", "") );
     }
 
     public Property setComment(Property p, String c) {
@@ -87,6 +88,9 @@ public class Luxcraft {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         LogHelper.info("It's alive... It's ALIVE!");
+
+
+
 
         LogHelper.info("Loading Config");
         Configuration config = new Configuration(event.getSuggestedConfigurationFile());
@@ -99,7 +103,7 @@ public class Luxcraft {
             LogHelper.info("Loading Client-side Config");
             Configuration config_client = new Configuration(new File(event.getModConfigurationDirectory(), "luxcraft_client.cfg"));
             config_client.load();
-            colorBlind = config_client.get("Client", "Color_Blind_Mode", false).getBoolean(false);
+            colorBlind = setComment(config_client.get("Client", "Color_Blind_Mode", false),"Color Blind Mode").getBoolean(false);
             config_client.save();
         }
 
@@ -116,6 +120,8 @@ public class Luxcraft {
         registerBlock(StygianBlack = new BlockStygianBlack());
         registerBlock(enderCrystal = new BlockEnderCrystal());
         registerBlock(stygianBlock = new BlockStygian(), ItemBlockMetadata.class);
+        registerBlock(liquidMirror = new BlockLiquidMirror());
+        registerBlock(new BlockConnectedTexturesTest());
 
         registerItem(luxGem = new ItemLuxGem());
         registerItem(luxSaber = new ItemLuxSaber());

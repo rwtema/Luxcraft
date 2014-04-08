@@ -84,7 +84,7 @@ public class BlockLuxReflector extends Block implements IReflector {
 
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack p_149689_6_) {
-        int var6 = determineOrientation(world, x, y, z, (EntityLivingBase) player);
+        int var6 = determineOrientation(world, x, y, z, player);
         world.setBlockMetadataWithNotify(x, y, z, var6, 0);
     }
 
@@ -94,7 +94,7 @@ public class BlockLuxReflector extends Block implements IReflector {
         if ((player.getCurrentEquippedItem() == null) || (player.getCurrentEquippedItem().getItem() == Items.stick)) {
             int data = world.getBlockMetadata(x, y, z);
             if (!player.isSneaking()) {
-                world.setBlockMetadataWithNotify(x, y, z, (data + 1) % 4 + ((int) data / 4) * 4, 2);
+                world.setBlockMetadataWithNotify(x, y, z, (data + 1) % 4 + (data / 4) * 4, 2);
             } else {
                 world.setBlockMetadataWithNotify(x, y, z, (data + 8) % 12, 2);
             }
@@ -104,10 +104,10 @@ public class BlockLuxReflector extends Block implements IReflector {
     }
 
     public int newDir(int side, int metadata) {
-        if (side == Facing.oppositeSide[this.getSide1(metadata)])
-            return this.getSide2(metadata);
-        else if (side == Facing.oppositeSide[this.getSide2(metadata)])
-            return this.getSide1(metadata);
+        if (side == Facing.oppositeSide[getSide1(metadata)])
+            return getSide2(metadata);
+        else if (side == Facing.oppositeSide[getSide2(metadata)])
+            return getSide1(metadata);
         return side;
     }
 
@@ -117,6 +117,7 @@ public class BlockLuxReflector extends Block implements IReflector {
 
     }
 
+    @SuppressWarnings("unchecked")
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_) {

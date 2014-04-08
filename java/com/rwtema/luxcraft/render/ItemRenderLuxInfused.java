@@ -56,11 +56,9 @@ public class ItemRenderLuxInfused implements IItemRenderer {
 
             GL11.glPushMatrix();
             {
-                double dt = 0.1;
+
 
                 GL11.glRotated(t * 360, 0, 1, 0);
-
-                // GL11.glTranslated(dt, dt, dt);
 
                 GL11.glScaled(0.8F, 0.8F, 0.8F);
 

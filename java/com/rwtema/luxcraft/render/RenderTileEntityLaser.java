@@ -66,8 +66,8 @@ public class RenderTileEntityLaser extends TileEntitySpecialRenderer {
 
         for (LuxColor col : LuxColor.values()) {
 
-            double t1 = (col.ordinal() / 2 / (double) col.n + (float) ((Minecraft.getSystemTime()) % 3000L) / 3000.0F) * Math.PI * 2;
-            double t2 = (col.ordinal() / 2 / (double) col.n + (float) ((Minecraft.getSystemTime()) % 4000L) / 4000.0F) * Math.PI * 2;
+            double t1 = (col.ordinal() / 2 / (double) LuxColor.n + (float) ((Minecraft.getSystemTime()) % 3000L) / 3000.0F) * Math.PI * 2;
+            double t2 = (col.ordinal() / 2 / (double) LuxColor.n + (float) ((Minecraft.getSystemTime()) % 4000L) / 4000.0F) * Math.PI * 2;
 
             // ddx = ddy = ddz = 0.5;
 

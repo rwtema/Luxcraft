@@ -118,12 +118,13 @@ public class BlockLuxLaser extends BlockMultiBlock {
             NBTTagCompound tag = new NBTTagCompound();
             laser.writeToNBT(tag);
 
-            ((EntityPlayerMP) player).addChatMessage(new ChatComponentText("" + tag.toString()));
+            player.addChatMessage(new ChatComponentText("" + tag.toString()));
         }
 
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
@@ -155,7 +156,7 @@ public class BlockLuxLaser extends BlockMultiBlock {
         model.addBoxI(3, 4, 3, 4, 10, 4).rotateY(1);
         model.addBoxI(3, 4, 3, 4, 10, 4).rotateY(2);
         model.addBoxI(3, 4, 3, 4, 10, 4).rotateY(3);
-        model.hollowBoxI(3, 10, 3, 5, 5, 11, 11, 13, 11, 13);
+        BoxModel.hollowBoxI(3, 10, 3, 5, 5, 11, 11, 13, 11, 13);
         return model;
     }
 }

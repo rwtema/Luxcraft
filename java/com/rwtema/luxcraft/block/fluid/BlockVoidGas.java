@@ -3,7 +3,6 @@ package com.rwtema.luxcraft.block.fluid;
 import com.rwtema.luxcraft.LuxcraftCreativeTab;
 import com.rwtema.luxcraft.particles.EntityVoidFX;
 import com.rwtema.luxcraft.particles.ParticleHandler;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -19,7 +18,7 @@ public class BlockVoidGas extends BlockFluidFinite {
     public static Fluid voidGas;
 
     public BlockVoidGas() {
-        super(createFluid(), Material.rock);
+        super(createFluid(), MaterialCustomLiquid.instance);
         this.setCreativeTab(LuxcraftCreativeTab.instance);
         this.setRenderPass(1);
         this.setBlockName("luxcraft:voidGas");
@@ -47,14 +46,14 @@ public class BlockVoidGas extends BlockFluidFinite {
     public void registerBlockIcons(IIconRegister register) {
         this.blockIcon = register.registerIcon("luxcraft:voidGas");
         voidGas.setIcons(this.blockIcon);
-        this.voidGas_particle = register.registerIcon("luxcraft:voidGas_particle");
+        voidGas_particle = register.registerIcon("luxcraft:voidGas_particle");
     }
 
     @Override
     public void randomDisplayTick(World world, int x, int y, int z, Random random) {
         super.randomDisplayTick(world, x, y, z, random);
         float maxY = getFluidHeightForRender(world, x, y, z);
-        for (int i = 0; i < 5; i++) ;
+        for (int i = 0; i < 5; i++)
         ParticleHandler.spawnParticle(new EntityVoidFX(world, x + random.nextDouble(), y + random.nextDouble() * maxY, z + random.nextDouble()));
     }
 

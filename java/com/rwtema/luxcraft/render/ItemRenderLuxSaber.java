@@ -11,7 +11,12 @@ import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 
+import java.nio.FloatBuffer;
+
+
 public class ItemRenderLuxSaber implements IItemRenderer {
+
+    private FloatBuffer matrixData = null;
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {
@@ -84,46 +89,64 @@ public class ItemRenderLuxSaber implements IItemRenderer {
         tessellator.draw();
 
         if (type == ItemRenderType.EQUIPPED || type == ItemRenderType.EQUIPPED_FIRST_PERSON) {
-            GL11.glTranslated(0, 1, 0);
-            GL11.glScaled(1, 3, 1);
+//            if(type == ItemRenderType.EQUIPPED_FIRST_PERSON) {
+//                if (matrixData != null) {
+//                    GL11.glPushMatrix();
+//                    GL11.glLoadMatrix(matrixData);
+//                    renderBlade(item, renderer,0.01F);
+//                    GL11.glPopMatrix();
+//                } else {
+//                    matrixData = BufferUtils.createFloatBuffer(16);
+//                    GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, matrixData);
+//                }
+//
+//                GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, matrixData);
+//            }
 
-            GL11.glEnable(GL11.GL_BLEND);
-            GL11.glDepthMask(true);
-
-            GL11.glDisable(GL11.GL_ALPHA_TEST);
-            GL11.glDisable(GL11.GL_LIGHTING);
-
-            GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE_MINUS_SRC_ALPHA);
-
-            texture = ItemLuxSaber.laserBeam;
-
-            GL11.glColor4d(1, 1, 1, 0.1);
-
-            texture = ItemLuxSaber.laserBeam;
-
-            renderer.overrideBlockBounds(0.4375, 0, 0.4375, 0.5625, 1 - 1 / 16 / 3, 0.5625);
-            drawCube(renderer, block, texture);
-            renderer.unlockBlockBounds();
-
-            LuxColor c = ItemLuxSaber.getColor(item);
-
-            GL11.glColor4d(c.r, c.g, c.b, 0.1);
-
-            renderer.overrideBlockBounds(0.375, 0, 0.375, 0.625, 1, 0.625);
-            drawCube(renderer, block, texture);
-            renderer.unlockBlockBounds();
-
-            GL11.glEnable(GL11.GL_LIGHTING);
-
-            GL11.glEnable(GL11.GL_ALPHA_TEST);
-            GL11.glDepthMask(true);
-
-            GL11.glDisable(GL11.GL_BLEND);
+            renderBlade(item, renderer, 0.1F);
         }
 
         renderer.unlockBlockBounds();
         renderer.setRenderBounds(0, 0, 0, 1, 1, 1);
 
+    }
+
+    private void renderBlade(ItemStack item, RenderBlocks renderer, float alpha) {
+        Block block = Blocks.stone;
+        IIcon texture;
+        GL11.glTranslated(0, 1, 0);
+        GL11.glScaled(1, 3, 1);
+
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glDepthMask(true);
+
+        GL11.glDisable(GL11.GL_ALPHA_TEST);
+        GL11.glDisable(GL11.GL_LIGHTING);
+
+        GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+        GL11.glColor4d(1, 1, 1, 0.1);
+
+        texture = ItemLuxSaber.laserBeam;
+
+        renderer.overrideBlockBounds(0.4375, 0, 0.4375, 0.5625, 1 - 1 / 16 / 3, 0.5625);
+        drawCube(renderer, block, texture);
+        renderer.unlockBlockBounds();
+
+        LuxColor c = ItemLuxSaber.getColor(item);
+
+        GL11.glColor4d(c.r, c.g, c.b, alpha);
+
+        renderer.overrideBlockBounds(0.375, 0, 0.375, 0.625, 1, 0.625);
+        drawCube(renderer, block, texture);
+        renderer.unlockBlockBounds();
+
+        GL11.glEnable(GL11.GL_LIGHTING);
+
+        GL11.glEnable(GL11.GL_ALPHA_TEST);
+        GL11.glDepthMask(true);
+
+        GL11.glDisable(GL11.GL_BLEND);
     }
 
     public void drawCube(RenderBlocks renderer, Block block, IIcon texture) {
