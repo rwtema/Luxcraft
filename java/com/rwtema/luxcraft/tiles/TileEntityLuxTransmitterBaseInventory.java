@@ -1,17 +1,22 @@
 package com.rwtema.luxcraft.tiles;
 
 import com.rwtema.luxcraft.luxapi.LuxStack;
+import cpw.mods.fml.common.Optional;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInvBasic;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
 
+import static cpw.mods.fml.common.Optional.InterfaceList;
+
+
 public abstract class TileEntityLuxTransmitterBaseInventory extends TileEntityLuxTransmitterBase implements IInventory, IInvBasic {
     public TileEntityLuxTransmitterBaseInventory(LuxStack maxLevels) {
         super(maxLevels);
         if (getInv() instanceof InventoryBasic)
             ((InventoryBasic) getInv()).func_110134_a(this);
+
     }
 
     public abstract IInventory getInv();

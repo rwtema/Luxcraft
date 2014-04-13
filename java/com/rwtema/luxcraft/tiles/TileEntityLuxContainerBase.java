@@ -53,7 +53,7 @@ public abstract class TileEntityLuxContainerBase extends TileEntity implements I
     }
 
     @Override
-    public float MaxLuxLevel(LuxColor col) {
+    public double MaxLuxLevel(LuxColor col) {
         return maxLevels.luxLevel(col);
     }
 

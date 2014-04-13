@@ -3,14 +3,14 @@ package com.rwtema.luxcraft.luxapi;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class LuxStack {
-    public static final float eps = 0.001F;
-    public float[] lux = new float[8];
+    public static final double eps = 0.001F;
+    public double[] lux = new double[8];
 
     public LuxStack() {
         this(0);
     }
 
-    public LuxStack(float W, float R, float G, float B, float C, float Y, float V, float K) {
+    public LuxStack(double W, double R, double G, double B, double C, double Y, double V, double K) {
         lux[0] = W;
         lux[1] = R;
         lux[2] = G;
@@ -21,19 +21,19 @@ public class LuxStack {
         lux[7] = K;
     }
 
-    public LuxStack(LuxColor color, float amount, Object... colors) {
+    public LuxStack(LuxColor color, double amount, Object... colors) {
         lux[color.index] = amount;
         LuxColor col = null;
 
         for (int i = 0; i < colors.length; i++) {
             if (colors[i] instanceof LuxColor)
                 col = (LuxColor) colors[i];
-            else if (col != null && colors[i] instanceof Float)
-                lux[col.index] = (Float) colors[i];
+            else if (col != null && colors[i] instanceof Double)
+                lux[col.index] = (Double) colors[i];
         }
     }
 
-    public LuxStack(float maxLux) {
+    public LuxStack(double maxLux) {
         this(maxLux, maxLux, maxLux, maxLux, maxLux, maxLux, maxLux, maxLux);
     }
 
@@ -43,7 +43,7 @@ public class LuxStack {
         return stack;
     }
 
-    public LuxStack add(LuxColor color, float amount) {
+    public LuxStack add(LuxColor color, double amount) {
         lux[color.index] += amount;
         return this;
     }
@@ -67,7 +67,7 @@ public class LuxStack {
         return this.extract(other.lux);
     }
 
-    public LuxStack extract(float[] extract) {
+    public LuxStack extract(double[] extract) {
         LuxStack temp = new LuxStack();
         for (byte color = 0; color < lux.length; color++) {
             temp.lux[color] = Math.min(lux[color], extract[color]);
@@ -76,14 +76,14 @@ public class LuxStack {
         return temp;
     }
 
-    public LuxStack mult(float mult) {
+    public LuxStack mult(double mult) {
         LuxStack temp = new LuxStack();
         for (byte color = 0; color < lux.length; color++)
-            temp.lux[color] = (float) Math.floor(lux[color] * mult);
+            temp.lux[color] = (double) Math.floor(lux[color] * mult);
         return temp;
     }
 
-    public LuxStack limit(float threshold) {
+    public LuxStack limit(double threshold) {
         LuxStack temp = new LuxStack();
         for (byte color = 0; color < lux.length; color++)
             temp.lux[color] = Math.min(threshold, lux[color]);
@@ -118,8 +118,8 @@ public class LuxStack {
         return str;
     }
 
-    public float totalLux() {
-        float total = 0;
+    public double totalLux() {
+        double total = 0;
         for (byte c = 0; c < lux.length; c++)
             total = total + lux[c];
         return total;
@@ -137,7 +137,7 @@ public class LuxStack {
     public NBTTagCompound writeToNBT(NBTTagCompound tags) {
         for (byte i = 0; i < lux.length; i++)
             if (lux[i] > 0)
-                tags.setFloat("Lux_" + i, lux[i]);
+                tags.setDouble("Lux_" + i, lux[i]);
 
         return tags;
     }
@@ -147,10 +147,10 @@ public class LuxStack {
      */
     public void readFromNBT(NBTTagCompound tags) {
         for (byte i = 0; i < lux.length; i++)
-            lux[i] = tags.getFloat("Lux_" + i);
+            lux[i] = tags.getDouble("Lux_" + i);
     }
 
-    public float luxLevel(LuxColor col) {
+    public double luxLevel(LuxColor col) {
         return lux[col.index];
     }
 

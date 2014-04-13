@@ -1,11 +1,14 @@
 package com.rwtema.luxcraft.tiles;
 
+import buildcraft.api.power.IPowerReceptor;
+import buildcraft.api.power.PowerHandler;
 import com.rwtema.luxcraft.LuxHelper;
 import com.rwtema.luxcraft.PosIteratorCube;
 import com.rwtema.luxcraft.luxapi.ILuxTransmitter;
 import com.rwtema.luxcraft.luxapi.LuxColor;
 import com.rwtema.luxcraft.luxapi.LuxStack;
 import com.rwtema.luxcraft.luxapi.Transfer;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.init.Blocks;
@@ -15,9 +18,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileEntityLuxGenerator extends TileEntityLuxTransmitterBaseInventory implements ILuxTransmitter {
+
+public class TileEntityLuxGenerator extends TileEntityLuxTransmitterBaseInventory implements IPowerReceptor, ILuxTransmitter {
 
     public static float maxLevel = 12 * 256;
     public Boolean gen = null;
@@ -60,7 +66,7 @@ public class TileEntityLuxGenerator extends TileEntityLuxTransmitterBaseInventor
 
     @Override
     public LuxStack insertLux(LuxStack lux, Transfer simulate) {
-        float p = lux.lux[getType().index];
+        double p = lux.lux[getType().index];
         p = Math.min(p, maxLevel - this.level);
 
         if (simulate.perform)
@@ -71,7 +77,7 @@ public class TileEntityLuxGenerator extends TileEntityLuxTransmitterBaseInventor
 
     @Override
     public LuxStack extractLux(LuxStack lux, Transfer simulate) {
-        float p = lux.lux[getType().index];
+        double p = lux.lux[getType().index];
         p = Math.min(p, this.level);
 
         if (simulate.perform)
@@ -180,4 +186,18 @@ public class TileEntityLuxGenerator extends TileEntityLuxTransmitterBaseInventor
         gen = checkGen();
     }
 
+    @Override
+    public PowerHandler.PowerReceiver getPowerReceiver(ForgeDirection side) {
+        return null;
+    }
+
+    @Override
+    public void doWork(PowerHandler workProvider) {
+
+    }
+
+    @Override
+    public World getWorld() {
+        return null;
+    }
 }

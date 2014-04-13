@@ -19,7 +19,7 @@ public class ContainerLuxContainer extends Container {
         this.container = container;
     }
 
-    public static short convToShort(float t, int level) {
+    public static short convToShort(double t, int level) {
         switch (level) {
             case 0:
                 return (short) Math.floor((t - Math.floor(t)) * 32768);

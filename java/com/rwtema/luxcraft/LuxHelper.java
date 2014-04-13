@@ -36,7 +36,7 @@ public class LuxHelper {
     }
 
     public static boolean shouldProcess(long time) {
-        return time % 4 == 0;
+        return time % 5 == 0;
     }
 
 }
