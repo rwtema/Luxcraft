@@ -7,11 +7,11 @@ import java.util.List;
 public interface ILaser {
 
 
-    public int getLength();
+    int getLength();
 
-    public List<Pos> getPath();
+    List<Pos> getPath();
 
-    public Pos getStart();
+    Pos getStart();
 
-    public int getMaxLength();
+    int getMaxLength();
 }

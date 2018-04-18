@@ -79,7 +79,7 @@ public class LuxStack {
     public LuxStack mult(double mult) {
         LuxStack temp = new LuxStack();
         for (byte color = 0; color < lux.length; color++)
-            temp.lux[color] = (double) Math.floor(lux[color] * mult);
+            temp.lux[color] = Math.floor(lux[color] * mult);
         return temp;
     }
 

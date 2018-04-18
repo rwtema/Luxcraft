@@ -1,7 +1,7 @@
 package com.rwtema.luxcraft.tiles;
 
 import com.rwtema.luxcraft.luxapi.LuxStack;
-import cpw.mods.fml.common.Optional;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInvBasic;
 import net.minecraft.inventory.IInventory;

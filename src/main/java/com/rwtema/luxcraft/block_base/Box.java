@@ -1,7 +1,7 @@
 package com.rwtema.luxcraft.block_base;
 
 import net.minecraft.util.IIcon;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 public class Box {
     public float minX;
@@ -157,7 +157,7 @@ public class Box {
         return this;
     }
 
-    public Box rotateToSide(ForgeDirection dir) {
+    public Box rotateToSide(EnumFacing dir) {
         Box prev = this.copy();
 
         switch (dir) {

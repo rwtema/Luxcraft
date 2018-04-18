@@ -5,7 +5,7 @@ import com.rwtema.luxcraft.luxapi.ILuxTransmitter;
 import com.rwtema.luxcraft.luxapi.LuxStack;
 import com.rwtema.luxcraft.luxapi.Transfer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 public class TileEntityLuxTransmitterBase extends TileEntityLuxContainerBase implements ILuxTransmitter {
     private LuxStack contents = new LuxStack();
@@ -37,7 +37,7 @@ public class TileEntityLuxTransmitterBase extends TileEntityLuxContainerBase imp
     @Override
     public void onNeighbourChange() {
         numLasers = 0;
-        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+        for (EnumFacing dir : EnumFacing.values()) {
             TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
             if (tile instanceof ILaserTile)
                 if (((ILaserTile) tile).isConnected(dir.getOpposite()))
@@ -61,7 +61,7 @@ public class TileEntityLuxTransmitterBase extends TileEntityLuxContainerBase imp
     }
 
     @Override
-    public LuxStack getTransmissionPacket(ForgeDirection side) {
+    public LuxStack getTransmissionPacket(EnumFacing side) {
         return transmit;
     }
 }

@@ -1,7 +1,7 @@
 package com.rwtema.luxcraft.luxapi;
 
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 public interface ILaserTile {
-    public boolean isConnected(ForgeDirection dir);
+    boolean isConnected(EnumFacing dir);
 }

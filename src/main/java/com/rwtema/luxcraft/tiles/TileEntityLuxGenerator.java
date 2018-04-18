@@ -16,11 +16,11 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySkull;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 
 public class TileEntityLuxGenerator extends TileEntityLuxTransmitterBaseInventory implements IPowerReceptor, ILuxTransmitter {
@@ -187,7 +187,7 @@ public class TileEntityLuxGenerator extends TileEntityLuxTransmitterBaseInventor
     }
 
     @Override
-    public PowerHandler.PowerReceiver getPowerReceiver(ForgeDirection side) {
+    public PowerHandler.PowerReceiver getPowerReceiver(EnumFacing side) {
         return null;
     }
 

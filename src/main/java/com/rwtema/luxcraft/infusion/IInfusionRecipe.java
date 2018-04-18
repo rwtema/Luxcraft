@@ -5,12 +5,12 @@ import net.minecraft.item.ItemStack;
 
 public interface IInfusionRecipe {
 
-    public abstract LuxStack getLux(ItemStack other);
+    LuxStack getLux(ItemStack other);
 
-    public abstract boolean matches(ItemStack other);
+    boolean matches(ItemStack other);
 
-    public abstract ItemStack createOutput(ItemStack other);
+    ItemStack createOutput(ItemStack other);
 
-    public ItemStack[] getInputs();
+    ItemStack[] getInputs();
 
 }

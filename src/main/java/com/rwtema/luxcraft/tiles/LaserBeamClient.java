@@ -2,7 +2,7 @@ package com.rwtema.luxcraft.tiles;
 
 import com.rwtema.luxcraft.luxapi.LuxColor;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 public class LaserBeamClient extends LaserBeam {
 
@@ -10,7 +10,7 @@ public class LaserBeamClient extends LaserBeam {
     public int[] maxLengths;
     private LuxColor col;
 
-    public LaserBeamClient(World world, int xstart, int ystart, int zstart, ForgeDirection direction, LaserType type, int[] maxLength) {
+    public LaserBeamClient(World world, int xstart, int ystart, int zstart, EnumFacing direction, LaserType type, int[] maxLength) {
 
         super(world, xstart, ystart, zstart, direction, type);
 

@@ -3,8 +3,9 @@ package com.rwtema.luxcraft.tiles;
 import com.rwtema.luxcraft.luxapi.ILaser;
 import com.rwtema.luxcraft.luxapi.IReflector;
 import net.minecraft.block.Block;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,10 +24,10 @@ public class LaserBeam implements Iterator<Pos>, ILaser, java.lang.Iterable<Pos>
     public int maxLength;
     public int curPos;
     public boolean changed = false;
-    ForgeDirection initdir, dir = null;
+    EnumFacing initdir, dir = null;
     private boolean finished;
 
-    public LaserBeam(World world, int xstart, int ystart, int zstart, ForgeDirection direction, LaserType type) {
+    public LaserBeam(World world, int xstart, int ystart, int zstart, EnumFacing direction, LaserType type) {
         this.world = world;
 
         this.start = new Pos(xstart, ystart, zstart);

@@ -7,7 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import scala.util.Random;
 
 import java.util.Iterator;
@@ -168,12 +168,12 @@ public class TileEntityLuxLaser extends TileEntity implements ILaserTile {
         return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 0, tag);
     }
 
-    public ForgeDirection getDir() {
+    public EnumFacing getDir() {
         return BlockLuxLaser.getDirection(getBlockMetadata());
     }
 
     @Override
-    public boolean isConnected(ForgeDirection dir) {
+    public boolean isConnected(EnumFacing dir) {
         return BlockLuxLaser.getDirection(getBlockMetadata()).equals(dir.getOpposite());
     }
 }

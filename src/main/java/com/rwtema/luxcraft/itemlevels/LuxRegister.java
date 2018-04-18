@@ -1,5 +1,6 @@
 package com.rwtema.luxcraft.itemlevels;
 
+import com.rwtema.luxcraft.StackHelper;
 import com.rwtema.luxcraft.luxapi.LuxColor;
 import com.rwtema.luxcraft.luxapi.LuxStack;
 import net.minecraft.block.material.Material;
@@ -21,7 +22,7 @@ public class LuxRegister {
     }
 
     public LuxStack toSynthesize(ItemStack item) {
-        if (item == null)
+        if (StackHelper.isNull(item))
             return null;
         return null;
     }
@@ -31,7 +32,7 @@ public class LuxRegister {
     }
 
     public LuxStack addBaseLux(ItemStack item) {
-        if (item == null)
+        if (StackHelper.isNull(item))
             return null;
 
         LuxStack t = new LuxStack();

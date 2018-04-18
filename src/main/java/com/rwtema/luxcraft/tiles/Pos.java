@@ -1,6 +1,7 @@
 package com.rwtema.luxcraft.tiles;
 
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 
 public class Pos {
     public int x, y, z;
@@ -15,10 +16,14 @@ public class Pos {
         this.z = z;
     }
 
-    public Pos advance(ForgeDirection dir) {
-        this.x += dir.offsetX;
-        this.y += dir.offsetY;
-        this.z += dir.offsetZ;
+    public Pos(BlockPos pos) {
+        this(pos.getX(),pos.getY(),pos.getZ());
+    }
+
+    public Pos advance(EnumFacing dir) {
+        this.x += dir.getFrontOffsetX();
+        this.y += dir.getFrontOffsetY();
+        this.z += dir.getFrontOffsetZ();
         return this;
     }
 

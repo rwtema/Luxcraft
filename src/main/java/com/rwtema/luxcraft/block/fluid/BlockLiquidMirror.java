@@ -19,7 +19,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -53,9 +53,9 @@ public class BlockLiquidMirror extends BlockFluidClassic {
         IIcon icon = super.getIcon(world, x, y, z, side);
         if (icon instanceof IconConnected) {
 //            if (side >= 2)
-//                return new IconCorrecting(((IconConnected) icon).getWorldIcon(world, x, y, z, ForgeDirection.getOrientation(side)));
+//                return new IconCorrecting(((IconConnected) icon).getWorldIcon(world, x, y, z, EnumFacing.getOrientation(side)));
 
-            return ((IconConnected) icon).getWorldIcon(world, x, y, z, ForgeDirection.getOrientation(side));
+            return ((IconConnected) icon).getWorldIcon(world, x, y, z, EnumFacing.getOrientation(side));
         }
         return icon;
     }

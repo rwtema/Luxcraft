@@ -46,9 +46,9 @@ public class TextureAnimationOffset extends TextureAtlasSprite {
     }
 
     private ResourceLocation completeResourceLocation(ResourceLocation p_147634_1_, int p_147634_2_) {
-        return p_147634_2_ == 0 ? new ResourceLocation(p_147634_1_.getResourceDomain(), String.format("%s/%s%s", new Object[]{"textures/blocks", p_147634_1_.getResourcePath(), ".png"}))
+        return p_147634_2_ == 0 ? new ResourceLocation(p_147634_1_.getResourceDomain(), String.format("%s/%s%s", "textures/blocks", p_147634_1_.getResourcePath(), ".png"))
                 : new ResourceLocation(p_147634_1_.getResourceDomain(), String.format("%s/mipmaps/%s.%d%s",
-                new Object[]{"textures/blocks", p_147634_1_.getResourcePath(), Integer.valueOf(p_147634_2_), ".png"}));
+				"textures/blocks", p_147634_1_.getResourcePath(), Integer.valueOf(p_147634_2_), ".png"));
     }
 
     public boolean load(IResourceManager par1ResourceManager, ResourceLocation location) {
@@ -61,7 +61,7 @@ public class TextureAnimationOffset extends TextureAtlasSprite {
             IResource iresource = par1ResourceManager.getResource(resourcelocation1);
             BufferedImage[] abufferedimage = new BufferedImage[1 + Minecraft.getMinecraft().gameSettings.mipmapLevels];
             abufferedimage[0] = ImageIO.read(iresource.getInputStream());
-            TextureMetadataSection texturemetadatasection = (TextureMetadataSection) iresource.getMetadata("texture");
+            TextureMetadataSection texturemetadatasection = iresource.getMetadata("texture");
 
             if (texturemetadatasection != null) {
                 List list = texturemetadatasection.getListMipmaps();
@@ -93,7 +93,7 @@ public class TextureAnimationOffset extends TextureAtlasSprite {
                 }
             }
 
-            AnimationMetadataSection animationmetadatasection = (AnimationMetadataSection) iresource.getMetadata("animation");
+            AnimationMetadataSection animationmetadatasection = iresource.getMetadata("animation");
             this.loadSprite(abufferedimage, animationmetadatasection, (float) Minecraft.getMinecraft().gameSettings.anisotropicFiltering > 1.0F);
         } catch (RuntimeException runtimeexception) {
             logger.error("Unable to parse metadata from " + resourcelocation1, runtimeexception);

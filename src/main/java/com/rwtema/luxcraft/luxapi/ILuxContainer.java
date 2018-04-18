@@ -2,10 +2,10 @@ package com.rwtema.luxcraft.luxapi;
 
 public interface ILuxContainer {
 
-    public LuxStack getLuxContents();
+    LuxStack getLuxContents();
 
-    public float MaxLuxLevel(LuxColor color);
+    float MaxLuxLevel(LuxColor color);
 
-    public LuxStack insertLux(LuxStack lux, Transfer simulate);
+    LuxStack insertLux(LuxStack lux, Transfer simulate);
 
 }

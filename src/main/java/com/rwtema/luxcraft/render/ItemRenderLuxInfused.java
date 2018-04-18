@@ -1,5 +1,6 @@
 package com.rwtema.luxcraft.render;
 
+import com.rwtema.luxcraft.StackHelper;
 import com.rwtema.luxcraft.item.ItemInfusedItems;
 import com.rwtema.luxcraft.luxapi.LuxColor;
 import net.minecraft.block.Block;
@@ -41,7 +42,7 @@ public class ItemRenderLuxInfused implements IItemRenderer {
             GL11.glScalef(0.5F, 0.5F, 0.5F);
         }
 
-        if (render == null) {
+        if (StackHelper.isNull(render)) {
             RenderHelper.renderItemAsBlock((RenderBlocks) data[0], item, offset, offset, offset);
         } else {
             rand.setSeed(item.getTagCompound().hashCode());

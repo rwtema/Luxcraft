@@ -1,6 +1,7 @@
 package com.rwtema.luxcraft.tiles;
 
 import com.rwtema.luxcraft.LuxHelper;
+import com.rwtema.luxcraft.StackHelper;
 import com.rwtema.luxcraft.infusion.IInfusionRecipe;
 import com.rwtema.luxcraft.infusion.InfusionRegistry;
 import com.rwtema.luxcraft.inventory.InventoryLimited;
@@ -40,7 +41,7 @@ public class TileEntityLuxInfuser extends TileEntityLuxTransmitterBaseSidedInven
     }
 
     public void checkRecipe() {
-        if (inv.getStackInSlot(0) == null) {
+        if (StackHelper.isNull(inv.getStackInSlot(0))) {
             this.setMaxLux(new LuxStack());
             return;
         }
@@ -52,7 +53,7 @@ public class TileEntityLuxInfuser extends TileEntityLuxTransmitterBaseSidedInven
 
     @Override
     public void onInventoryChanged(InventoryBasic var1) {
-        if (var1.getStackInSlot(0) == null)
+        if (StackHelper.isNull(var1.getStackInSlot(0)))
             this.setLuxContents(new LuxStack());
         this.markDirty();
     }

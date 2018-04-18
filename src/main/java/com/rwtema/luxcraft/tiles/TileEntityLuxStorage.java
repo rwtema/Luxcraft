@@ -4,7 +4,7 @@ import com.rwtema.luxcraft.LuxHelper;
 import com.rwtema.luxcraft.luxapi.LuxStack;
 import com.rwtema.luxcraft.luxapi.Transfer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 public class TileEntityLuxStorage extends TileEntityLuxTransmitterBase {
 
@@ -19,7 +19,7 @@ public class TileEntityLuxStorage extends TileEntityLuxTransmitterBase {
         super.updateEntity();
 
         if (numConnections > 0 && LuxHelper.shouldProcess(worldObj) && this.getLuxContents().isSignificant()) {
-            for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+            for (EnumFacing dir : EnumFacing.values()) {
                 if ((connectionMask & (1 << dir.ordinal())) != 0) {
                     TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
                     if (tile != null && tile.getClass() == this.getClass()) {
@@ -40,7 +40,7 @@ public class TileEntityLuxStorage extends TileEntityLuxTransmitterBase {
     public void onNeighbourChange() {
         connectionMask = 0;
         numConnections = 0;
-        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+        for (EnumFacing dir : EnumFacing.values()) {
             TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
             if (tile != null && tile.getClass() == this.getClass()) {
                 connectionMask = connectionMask | (1 << dir.ordinal());

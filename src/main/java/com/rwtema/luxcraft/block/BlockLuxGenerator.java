@@ -2,10 +2,11 @@ package com.rwtema.luxcraft.block;
 
 import com.rwtema.luxcraft.Luxcraft;
 import com.rwtema.luxcraft.LuxcraftCreativeTab;
+import com.rwtema.luxcraft.StackHelper;
 import com.rwtema.luxcraft.tiles.TileEntityLuxGenerator;
 import com.rwtema.luxcraft.tiles.TileEntityLuxTransmitterBase;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -83,11 +84,11 @@ public class BlockLuxGenerator extends BlockLuxContainer {
                     float var11 = random.nextFloat() * 0.8F + 0.1F;
                     EntityItem var14;
 
-                    for (float var12 = random.nextFloat() * 0.8F + 0.1F; var9.stackSize > 0; par1World.spawnEntityInWorld(var14)) {
+                    for (float var12 = random.nextFloat() * 0.8F + 0.1F; StackHelper.getStackSize(var9) > 0; par1World.spawnEntityInWorld(var14)) {
                         int var13 = random.nextInt(21) + 10;
 
-                        if (var13 > var9.stackSize) {
-                            var13 = var9.stackSize;
+                        if (var13 > StackHelper.getStackSize(var9)) {
+                            var13 = StackHelper.getStackSize(var9);
                         }
 
                         var9.stackSize -= var13;

@@ -1,5 +1,6 @@
 package com.rwtema.luxcraft.containers;
 
+import com.rwtema.luxcraft.StackHelper;
 import com.rwtema.luxcraft.tiles.TileEntityLuxGenerator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -42,7 +43,7 @@ public class ContainerLuxGenerator extends ContainerLuxContainer {
      */
     public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2) {
         ItemStack var3 = null;
-        Slot var4 = (Slot) this.inventorySlots.get(par2);
+        Slot var4 = this.inventorySlots.get(par2);
 
         if (var4 != null && var4.getHasStack()) {
             ItemStack var5 = var4.getStack();
@@ -56,7 +57,7 @@ public class ContainerLuxGenerator extends ContainerLuxContainer {
                 return null;
             }
 
-            if (var5.stackSize == 0) {
+            if (StackHelper.getStackSize(var5) == 0) {
                 var4.putStack(null);
             } else {
                 var4.onSlotChanged();

@@ -4,8 +4,8 @@ import com.rwtema.luxcraft.LuxcraftClient;
 import com.rwtema.luxcraft.LuxcraftCreativeTab;
 import com.rwtema.luxcraft.luxapi.ILaser;
 import com.rwtema.luxcraft.luxapi.IReflector;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -19,7 +19,7 @@ import net.minecraft.util.Facing;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 import java.util.List;
 
@@ -125,8 +125,8 @@ public class BlockLuxReflector extends Block implements IReflector {
     }
 
     @Override
-    public ForgeDirection newDir(ForgeDirection dir, World world, int x, int y, int z, ILaser beam) {
-        return ForgeDirection.getOrientation(newDir(dir.ordinal(), world.getBlockMetadata(x, y, z)));
+    public EnumFacing newDir(EnumFacing dir, World world, int x, int y, int z, ILaser beam) {
+        return EnumFacing.getOrientation(newDir(dir.ordinal(), world.getBlockMetadata(x, y, z)));
     }
 
 }

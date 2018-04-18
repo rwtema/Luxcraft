@@ -3,7 +3,7 @@ package com.rwtema.luxcraft.containers;
 import com.rwtema.luxcraft.tiles.TileEntityLuxGenerator;
 import com.rwtema.luxcraft.tiles.TileEntityLuxInfuser;
 import com.rwtema.luxcraft.tiles.TileEntityLuxStorage;
-import cpw.mods.fml.common.network.IGuiHandler;
+import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

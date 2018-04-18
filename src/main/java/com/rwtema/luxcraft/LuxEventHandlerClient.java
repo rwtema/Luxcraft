@@ -1,6 +1,6 @@
 package com.rwtema.luxcraft;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class LuxEventHandlerClient {

@@ -1,6 +1,6 @@
 package com.rwtema.luxcraft.block_base;
 
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +74,7 @@ public class BoxModel extends ArrayList<Box> {
         return b;
     }
 
-    public BoxModel rotateToSide(ForgeDirection dir) {
+    public BoxModel rotateToSide(EnumFacing dir) {
         for (int i = 0; i < this.size(); i++) {
             this.get(i).rotateToSide(dir);
         }

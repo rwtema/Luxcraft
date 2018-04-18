@@ -38,9 +38,9 @@ public class TextureAtlasSpritePublic extends TextureAtlasSprite {
     public int tickCounter;
 
     public ResourceLocation completeResourceLocation(ResourceLocation p_147634_1_, int p_147634_2_) {
-        return p_147634_2_ == 0 ? new ResourceLocation(p_147634_1_.getResourceDomain(), String.format("%s/%s%s", new Object[]{"textures/blocks", p_147634_1_.getResourcePath(), ".png"}))
+        return p_147634_2_ == 0 ? new ResourceLocation(p_147634_1_.getResourceDomain(), String.format("%s/%s%s", "textures/blocks", p_147634_1_.getResourcePath(), ".png"))
                 : new ResourceLocation(p_147634_1_.getResourceDomain(), String.format("%s/mipmaps/%s.%d%s",
-                new Object[]{"textures/blocks", p_147634_1_.getResourcePath(), Integer.valueOf(p_147634_2_), ".png"}));
+				"textures/blocks", p_147634_1_.getResourcePath(), Integer.valueOf(p_147634_2_), ".png"));
     }
 
 
@@ -411,7 +411,7 @@ public class TextureAtlasSpritePublic extends TextureAtlasSprite {
         {
             for (int j = this.framesTextureData.size(); j <= par1; ++j)
             {
-                this.framesTextureData.add((Object)null);
+                this.framesTextureData.add(null);
             }
         }
     }

@@ -6,8 +6,8 @@ import com.rwtema.luxcraft.debug.CommandClientDebug;
 import com.rwtema.luxcraft.render.*;
 import com.rwtema.luxcraft.tiles.TileEntityEnderCrystal;
 import com.rwtema.luxcraft.tiles.TileEntityLuxLaserClient;
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.MinecraftForgeClient;
 

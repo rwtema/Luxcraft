@@ -8,8 +8,8 @@ import com.rwtema.luxcraft.luxapi.LuxColor;
 import com.rwtema.luxcraft.tiles.LaserType;
 import com.rwtema.luxcraft.tiles.TileEntityLuxLaser;
 import com.rwtema.luxcraft.tiles.TileEntityLuxLaserClient;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -20,12 +20,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 import java.util.List;
 
@@ -40,8 +40,8 @@ public class BlockLuxLaser extends BlockMultiBlock {
         this.setLightOpacity(0);
     }
 
-    public static ForgeDirection getDirection(int metadata) {
-        return ForgeDirection.getOrientation(metadata % 6);
+    public static EnumFacing getDirection(int metadata) {
+        return EnumFacing.values()[metadata % 6];
     }
 
     public static LaserType getLaser(int metadata) {
@@ -141,7 +141,7 @@ public class BlockLuxLaser extends BlockMultiBlock {
         int metadata = world.getBlockMetadata(x, y, z);
 
         BoxModel model = this.getInventoryModel(0);
-        model.rotateToSide(ForgeDirection.getOrientation(metadata % 6).getOpposite());
+        model.rotateToSide(EnumFacing.getOrientation(metadata % 6).getOpposite());
 
         return model;
     }

@@ -21,8 +21,8 @@ public class FurnaceStuff {
 
                     result = result.copy();
                     result.stackSize *= 2;
-                    if (result.stackSize > 64)
-                        result.stackSize = 64;
+                    if (StackHelper.getStackSize(result) > 64)
+                        StackHelper.setStackSize(result, 64);
 
                     float exp = 1.25F * FurnaceRecipes.smelting().func_151398_b(result);
                     FurnaceRecipes.smelting().func_151394_a(new ItemStack(Luxcraft.luxInfusedItem, 1, damage), result, exp);
